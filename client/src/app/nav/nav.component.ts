@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -11,16 +10,13 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  currentUser$: Observable<User>;
   username: String = "";
 
-  constructor(private accountService: AccountService) {
+  constructor(public accountService: AccountService) {
   }
 
   ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
-
-    this.currentUser$.pipe(take(1)).subscribe((user: User) => {
+    this.accountService.currentUser$.pipe(take(1)).subscribe((user: User) => {
       this.username = user.username;
     })
     console.log("[D] Init of nav component")

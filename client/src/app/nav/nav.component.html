@@ -1,6 +1,7 @@
+<!-- Add responsiveness in the future perhaps... -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 	<div class="container">
-		<a class="navbar-brand" href="#">InstaClone</a>
+		<a class="navbar-brand" href="#">Shop Site</a>
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
 				<a class="nav-link" aria-current="page" href="#">Home</a>
@@ -8,7 +9,7 @@
 			<li class="nav-item">
 				<a class="nav-link" href="#">About</a>
 			</li>
-			<li class="nav-item" *ngIf="currentUser$ | async">
+			<li class="nav-item" *ngIf="accountService.currentUser$ | async">
 				<a class="nav-link" href="#">Shop</a>
 			</li>
 			<li class="nav-item">
@@ -16,7 +17,7 @@
 			</li>
 		</ul>
 
-		<span class="dropdown" *ngIf="currentUser$ | async" dropdown>
+		<span class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
 			<a href="#" class="dropdown-toggle text-light" dropdownToggle>Welcome {{username}}!</a>
 			<div class="dropdown-menu mt-3" *bsDropdownMenu>
 				<a class="dropdown-item">Edit profile</a>
@@ -27,13 +28,13 @@
 			</div>
 		</span>
 
-		<form *ngIf="!(currentUser$ | async)" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+		<form *ngIf="(accountService.currentUser$ | async) === null" class="d-flex" (ngSubmit)="login()" autocomplete="off">
 			<input 
 				name="username" [(ngModel)]="model.username" 
-				class="form-control me-2" type="text" 
+				class="form-control mr-3" type="text" 
 				placeholder="Username">			
 			<input 
-				name="password" class="form-control me-2"
+				name="password" class="form-control mr-3"
 				[(ngModel)]="model.password" type="password" 
 				placeholder="Password">
 			<button class="btn btn-outline-success" type="submit">Login</button>
