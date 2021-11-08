@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+	<div class="container">
+		<a class="navbar-brand" href="#">InstaClone</a>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" aria-current="page" href="#">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">About</a>
+			</li>
+			<li class="nav-item" *ngIf="currentUser$ | async">
+				<a class="nav-link" href="#">Shop</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact</a>
+			</li>
+		</ul>
+
+		<span class="dropdown" *ngIf="currentUser$ | async" dropdown>
+			<a href="#" class="dropdown-toggle text-light" dropdownToggle>Welcome {{username}}!</a>
+			<div class="dropdown-menu mt-3" *bsDropdownMenu>
+				<a class="dropdown-item">Edit profile</a>
+				<!-- <div class="dropdown-divider"></div> -->
+				<a class="dropdown-item">My Cart</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" (click)="logout()">Logout</a>
+			</div>
+		</span>
+
+		<form *ngIf="!(currentUser$ | async)" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+			<input 
+				name="username" [(ngModel)]="model.username" 
+				class="form-control me-2" type="text" 
+				placeholder="Username">			
+			<input 
+				name="password" class="form-control me-2"
+				[(ngModel)]="model.password" type="password" 
+				placeholder="Password">
+			<button class="btn btn-outline-success" type="submit">Login</button>
+		</form>
+	</div>
+</nav>

@@ -44,18 +44,14 @@ namespace API.Controllers
             };
         }
 
+        //api/account/login
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO){
             var user = await _context.Users.SingleOrDefaultAsync(x =>
                 x.UserName == loginDTO.username.ToLower());
             
             if (user == null) return Unauthorized("Invalid username");
-
-            Console.Write("----\n");
-            Console.Write(user.UserName);
-            Console.Write(user.passSalt);
-            Console.Write("----\n");
-            
+                        
             using var hmac = new HMACSHA512(user.passSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.password));
 
