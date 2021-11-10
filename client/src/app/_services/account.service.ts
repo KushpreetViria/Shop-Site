@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { pipe, ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators'
 import { User } from '../_models/user';
 
 //injectable into components,
-//services are singleton that last the app cycle
+//services are singleton that last the app/component cycle
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +26,17 @@ export class AccountService {
         }
       })
     );
+  }
+
+  register(model: any){
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((user:User) => {
+        if(user){
+          localStorage.setItem('user',JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    )
   }
 
   logout() {

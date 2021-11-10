@@ -9,30 +9,20 @@ import { AccountService } from './_services/account.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  AppTitle = 'My App';
-  users: any;
+  AppTitle = 'Shop Site';
   
-  //private property called http of type HttpClient
-  constructor(private http: HttpClient, private accountService: AccountService) {
+  constructor(private accountService: AccountService) {
     //nothing...
   }
   
   ngOnInit(): void {
-    this.getUsers();
+    //this.getUsers();
     this.setCurrentUser();
-  }
-
-  getUsers(): void {
-    this.http.get("https://localhost:5001/api/users").subscribe(response => {
-      this.users = response;
-    }, error => {
-      console.log(error);
-    });
   }
 
   setCurrentUser(){
     const user: User = JSON.parse(localStorage.getItem('user'));
-     this.accountService.setCurrentUser(user);
+    this.accountService.setCurrentUser(user);
   }
 }
 
