@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 
@@ -10,29 +11,28 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  username: String = "";
-
-  constructor(public accountService: AccountService) {
+  
+  constructor(public accountService: AccountService, private router: Router,
+    private toastr: ToastrService) {}
+    
+    ngOnInit(): void {
+      console.log("[D] Init of nav component")
+    }
+    
+    login(){
+      this.accountService.login(this.model).subscribe(response =>{
+        console.log(response);
+        this.router.navigateByUrl('/items');
+      }, err => {
+        this.toastr.error(err.error);
+        console.log("[D] while logging in: ", err.errror);
+      }); 
+    }
+    
+    logout(){
+      this.accountService.logout();
+      console.log("[D] logging out...");
+    }
+    
   }
-
-  ngOnInit(): void {
-    this.accountService.currentUser$.pipe(take(1)).subscribe((user: User) => {
-      this.username = user.username;
-    })
-    console.log("[D] Init of nav component")
-  }
-
-  login(){
-    this.accountService.login(this.model).subscribe(response =>{
-      console.log(response);
-      this.username = this.model.username;
-    }, error => console.error());
-    console.log("[D] logging in...")
-  }
-
-  logout(){
-    this.accountService.logout();
-    console.log("[D] logging out...");
-  }
-
-}
+  

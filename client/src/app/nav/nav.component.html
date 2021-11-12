@@ -1,24 +1,28 @@
 <!-- Add responsiveness in the future perhaps... -->
+
+<!-- TODO: vid used membersList, lists and messages component and their routes-->
+<!-- TODO: When logged in, user should get the shopping links (items, list, cart) in nav bar -->
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 	<div class="container">
-		<a class="navbar-brand" href="#">Shop Site</a>
+		<a class="navbar-brand" style="cursor: default;">Shop Site</a>
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" aria-current="page" href="#">Home</a>
+				<a class="nav-link" aria-current="page" routerLink="/">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">About</a>
+				<a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
 			</li>
 			<li class="nav-item" *ngIf="accountService.currentUser$ | async">
-				<a class="nav-link" href="#">Shop</a>
+				<a class="nav-link" routerLink="/items" routerLinkActive="active">Shop</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Contact</a>
+				<a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
 			</li>
 		</ul>
 
 		<span class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-			<a href="#" class="dropdown-toggle text-light" dropdownToggle>Welcome {{username}}!</a>
+			<a class="dropdown-toggle text-light" dropdownToggle>Welcome {{accountService.username}}!</a>
 			<div class="dropdown-menu mt-3" *bsDropdownMenu>
 				<a class="dropdown-item">Edit profile</a>
 				<!-- <div class="dropdown-divider"></div> -->
