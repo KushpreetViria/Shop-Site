@@ -13,7 +13,6 @@ export class AccountService {
   baseUrl = "https://localhost:5001/api/"
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
-  username: String = "";
   
   constructor(private http:HttpClient) { }
   
@@ -24,7 +23,6 @@ export class AccountService {
         if (user){
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user)
-          this.setCurrentUser(user);
         }
       })
     );
@@ -36,7 +34,6 @@ export class AccountService {
         if(user){
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user);
-          this.setCurrentUser(user);
         }
       })
     );
@@ -45,14 +42,10 @@ export class AccountService {
     logout() {
       localStorage.removeItem('user');
       this.currentUserSource.next(null);
-      this.setCurrentUser(null);
     }
     
     setCurrentUser(user : User){
       this.currentUserSource.next(user);
-      this.currentUser$.pipe(take(1)).subscribe((name: User) => {
-        this.username = name ? name.username :  "";
-        });
   }
 }
     

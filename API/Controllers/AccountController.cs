@@ -29,7 +29,7 @@ namespace API.Controllers
             if(await existingUser(registerDTO.username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
             var user = new AppUser{
-                UserName = registerDTO.username.ToLower(),
+                UserName = registerDTO.username,
                 passHash = hmac.ComputeHash(
                     Encoding.UTF8.GetBytes(registerDTO.password)),
                     passSalt = hmac.Key
@@ -48,16 +48,16 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO){
             var user = await _context.Users.SingleOrDefaultAsync(x =>
-                x.UserName == loginDTO.username.ToLower());
+                x.UserName == loginDTO.username);
             
-            if (user == null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid username/password");
                         
             using var hmac = new HMACSHA512(user.passSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.password));
 
             for(uint i = 0; i < computedHash.Length; i++ ){
                 if(computedHash[i] != user.passHash[i])
-                    return Unauthorized("Invalid password");
+                    return Unauthorized("Invalid username/password");
             }
 
             return new UserDTO
@@ -68,7 +68,7 @@ namespace API.Controllers
         }
 
         private async Task<bool> existingUser(string username){
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _context.Users.AnyAsync(x => x.UserName == username);
         }
 	}
 }
