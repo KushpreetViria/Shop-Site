@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="error-template">
+				<h1>Oops!</h1>
+				<h2>500 Internal Server Error:</h2>
+				<h3 class="text-danger">{{error.message}}</h3>
+				<div class="error-details">
+					Sorry, an error has occured on our side. Failed to complete request.
+					<div class="error-actions">
+						<button routerLink="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>&nbsp;Return to Home</button>
+						<button routerLink="/contact" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support</button>
+					</div>
+				</div>
+			</div>
+			<p>Stack trace:</p>
+			<code class="blockquote text-danger">
+				<p class="p">{{error.details}}</p>
+			</code>
+		</div>
+	</div>
+</div>
