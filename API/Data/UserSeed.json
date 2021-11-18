@@ -1,0 +1,166 @@
+[
+	{
+	  "UserName": "Jessica",
+	  "DateOfBirth": "1952-02-11",
+	  "KnownAs": "Jessica",
+	  "FirstName": "Kathie",
+	  "LastName": "Pacheco",
+	  "DateCreated": "2019-01-08",
+	  "City": "Marbury",
+	  "Country": "Spain",
+	  "Cart":{
+		  "Count":5,
+		  "DateCreated":"2019-01-08",
+		  "Items":[
+			{
+			  "SellerId": 10,
+			  "Name": "randomItem13",
+			  "Description": "Good",
+			  "DateListed": "2019-12-14",
+			  "Price": 21.4986,
+			  "ItemImage": {
+				"Url": "https://picsum.photos/200/300"
+			  }
+			},
+			{
+			  "SellerId": 1,
+			  "Name": "randomItem36",
+			  "Description": "Good",
+			  "DateListed": "2020-03-06",
+			  "Price": 4.1239,
+			  "ItemImage": {
+				"Url": "https://picsum.photos/200/300"
+			  }
+			},
+			{
+			  "SellerId": 0,
+			  "Name": "randomItem5",
+			  "Description": "Terrible",
+			  "DateListed": "2019-07-27",
+			  "Price": 47.6341,
+			  "ItemImage": {
+				"Url": "https://picsum.photos/200/300"
+			  }
+			},
+			{
+			  "SellerId": 2,
+			  "Name": "randomItem14",
+			  "Description": "Shit",
+			  "DateListed": "2019-05-05",
+			  "Price": 28.6906,
+			  "ItemImage": {
+				"Url": "https://picsum.photos/200/300"
+			  }
+			},
+			{
+			  "SellerId": 1,
+			  "Name": "randomItem95",
+			  "Description": "Terrible",
+			  "DateListed": "2019-08-01",
+			  "Price": 4.3226,
+			  "ItemImage": {
+				"Url": "https://picsum.photos/200/300"
+			  }
+			}
+		  ]
+
+	  }
+	},
+	{
+	  "UserName": "Ada",
+	  "DateOfBirth": "1991-05-12",
+	  "KnownAs": "Ada",
+	  "FirstName": "Meadows",
+	  "LastName": "Andrews",
+	  "DateCreated": "2020-01-16",
+	  "City": "Jacksonburg",
+	  "Country": "Nigeria"
+	},
+	{
+	  "UserName": "Robbie",
+	  "DateOfBirth": "1957-11-10",
+	  "KnownAs": "Robbie",
+	  "FirstName": "Stuart",
+	  "LastName": "Guerra",
+	  "DateCreated": "2019-10-31",
+	  "City": "Caspar",
+	  "Country": "El Salvador"
+	},
+	{
+	  "UserName": "Rachelle",
+	  "DateOfBirth": "1999-07-30",
+	  "KnownAs": "Rachelle",
+	  "FirstName": "Orr",
+	  "LastName": "Mann",
+	  "DateCreated": "2019-05-31",
+	  "City": "Calverton",
+	  "Country": "Comoros",
+	  "Cart":{
+		"Count":3,
+		"DateCreated":"2019-01-08",
+		"Items":[
+		  {
+			"SellerId": 22,
+			"Name": "randomItem10",
+			"Description": "Horriblr",
+			"DateListed": "2019-12-14",
+			"Price": 24.4986,
+			"ItemImage": {
+			  "Url": "https://picsum.photos/200/300"
+			}
+		  },
+		  {
+			"SellerId": 1,
+			"Name": "randomItem36",
+			"Description": "Good",
+			"DateListed": "2020-03-06",
+			"Price": 4.1239,
+			"ItemImage": {
+			  "Url": "https://picsum.photos/200/300"
+			}
+		  },
+		  {
+			"SellerId": 0,
+			"Name": "randomItem5",
+			"Description": "Terrible",
+			"DateListed": "2019-07-27",
+			"Price": 47.6341,
+			"ItemImage": {
+			  "Url": "https://picsum.photos/200/300"
+			}
+		  },
+		  {
+			"SellerId": 2,
+			"Name": "randomItem14",
+			"Description": "Shit",
+			"DateListed": "2019-05-05",
+			"Price": 28.6906,
+			"ItemImage": {
+			  "Url": "https://picsum.photos/200/300"
+			}
+		  },
+		  {
+			"SellerId": 1,
+			"Name": "randomItem95",
+			"Description": "Terrible",
+			"DateListed": "2019-08-01",
+			"Price": 4.3226,
+			"ItemImage": {
+			  "Url": "https://picsum.photos/200/300"
+			}
+		  }
+		]
+
+	}
+	},
+	{
+	  "UserName": "Marisa",
+	  "DateOfBirth": "1963-06-29",
+	  "KnownAs": "Marisa",
+	  "FirstName": "Kelsey",
+	  "LastName": "Gray",
+	  "DateCreated": "2019-10-04",
+	  "City": "Trona",
+	  "Country": "Seychelles"
+	}
+  ]

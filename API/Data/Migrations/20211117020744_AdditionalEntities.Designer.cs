@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211117020744_AdditionalEntities")]
+    partial class AdditionalEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,28 +66,6 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("API.Entities.Cart", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AppUserID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserID")
-                        .IsUnique();
-
-                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("API.Entities.Item", b =>
@@ -184,32 +164,6 @@ namespace API.Data.Migrations
                     b.ToTable("OrderDetail");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
-                {
-                    b.Property<string>("CartsId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ItemsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CartsId", "ItemsId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("CartItem");
-                });
-
-            modelBuilder.Entity("API.Entities.Cart", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", "AppUser")
-                        .WithOne("Cart")
-                        .HasForeignKey("API.Entities.Cart", "AppUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("API.Entities.ItemImage", b =>
                 {
                     b.HasOne("API.Entities.Item", "Item")
@@ -243,25 +197,8 @@ namespace API.Data.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("CartItem", b =>
-                {
-                    b.HasOne("API.Entities.Cart", null)
-                        .WithMany()
-                        .HasForeignKey("CartsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Entities.Item", null)
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
-                    b.Navigation("Cart");
-
                     b.Navigation("Orders");
                 });
 
