@@ -31,5 +31,14 @@ namespace API.Entities
         {
             return DateOfBirth.CalculateAge();
         }
+
+        public string GetFullAddress(){
+            if(string.IsNullOrEmpty(this.Address) && string.IsNullOrEmpty(this.City) && string.IsNullOrEmpty(this.State) &&
+                string.IsNullOrEmpty(this.Country) && string.IsNullOrEmpty(this.PostalCode)){
+                return $"{this.Address}, {this.City}, {this.State}, {this.Country}, {this.PostalCode}";
+            }else{
+                return null;
+            }
+        }
     }
 }

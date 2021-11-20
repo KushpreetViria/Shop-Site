@@ -1,0 +1,52 @@
+[
+	{
+	  "SellerId": 10,
+	  "Name": "randomItem13",
+	  "Description": "Good",
+	  "DateListed": "2019-12-14",
+	  "Price": 21.4986,
+	  "ItemImage": {
+		"url": "https://randomuser.me/api/portraits/women/51.jpg"
+	  }
+	},
+	{
+	  "SellerId": 1,
+	  "Name": "randomItem36",
+	  "Description": "Good",
+	  "DateListed": "2020-03-06",
+	  "Price": 4.1239,
+	  "ItemImage": {
+		"url": "https://randomuser.me/api/portraits/women/84.jpg"
+	  }
+	},
+	{
+	  "SellerId": 0,
+	  "Name": "randomItem5",
+	  "Description": "Terrible",
+	  "DateListed": "2019-07-27",
+	  "Price": 47.6341,
+	  "ItemImage": {
+		"url": "https://randomuser.me/api/portraits/women/11.jpg"
+	  }
+	},
+	{
+	  "SellerId": 2,
+	  "Name": "randomItem14",
+	  "Description": "Shit",
+	  "DateListed": "2019-05-05",
+	  "Price": 28.6906,
+	  "ItemImage": {
+		"url": "https://randomuser.me/api/portraits/women/88.jpg"
+	  }
+	},
+	{
+	  "SellerId": 1,
+	  "Name": "randomItem95",
+	  "Description": "Terrible",
+	  "DateListed": "2019-08-01",
+	  "Price": 4.3226,
+	  "ItemImage": {
+		"url": "https://randomuser.me/api/portraits/women/50.jpg"
+	  }
+	}
+  ]
