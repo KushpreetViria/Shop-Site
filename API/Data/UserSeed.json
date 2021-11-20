@@ -14,12 +14,12 @@
 			"OrderDate":"2020-03-09",
 			"OrderDetials":[
 				{
-					"ItemID":2,
+					"ItemName":"trashItem",
 					"Quantity":1,
 					"UnitPrice":1.50
 				},
 				{
-					"ItemID":5,
+					"ItemName":"greatItem",
 					"Quantity":1,
 					"UnitPrice":2.50
 				}
@@ -30,7 +30,7 @@
 			"OrderDate":"2020-12-12",
 			"OrderDetials":[
 				{
-					"ItemID":9,
+					"ItemName":"ExcellentItem",
 					"Quantity":10,
 					"UnitPrice":0.10
 				}

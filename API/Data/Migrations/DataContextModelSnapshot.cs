@@ -68,8 +68,9 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Cart", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("AppUserID")
                         .HasColumnType("INTEGER");
@@ -165,8 +166,8 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ItemID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ItemName")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("OrderID")
                         .HasColumnType("INTEGER");
@@ -186,8 +187,8 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("CartItem", b =>
                 {
-                    b.Property<string>("CartsId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CartsId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ItemsId")
                         .HasColumnType("INTEGER");
