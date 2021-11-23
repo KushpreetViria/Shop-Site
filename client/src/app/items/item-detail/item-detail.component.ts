@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Item } from 'src/app/_models/item';
 
 @Component({
   selector: 'app-item-detail',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit {
-
-  constructor() { }
+  @Input() item : Item;
+  constructor(private toastrService: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  addToCart(){
+    this.toastrService.info("Item added to cart: " + this.item.name);
   }
 
 }

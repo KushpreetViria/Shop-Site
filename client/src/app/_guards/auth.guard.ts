@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         if (user){
           return true;
         }else{
-          this.toastr.error("Invalid User");
+          this.toastr.error("Authentication failed.");
           return false;
         }
       })

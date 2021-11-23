@@ -1,1 +1,6 @@
-<p>item-list works!</p>
+<div class="row">
+	<h3>Items:</h3>
+	<div  *ngFor="let item of items" class="col-3">
+		<app-item-detail [item]="item"></app-item-detail>
+	</div>
+</div>

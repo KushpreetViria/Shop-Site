@@ -20,7 +20,7 @@ const routes: Routes = [
     runGuardsAndResolvers:'always',
     canActivate:[AuthGuard],
     children:[
-      {path: 'items', component: ItemListComponent, canActivate: [AuthGuard]},
+      {path: 'items', component: ItemListComponent},
       {path: 'item/:id', component: ItemDetailComponent},
       {path: 'lists', component: ListsComponent},
       {path: 'cart', component: CartComponent},

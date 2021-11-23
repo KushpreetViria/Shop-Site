@@ -1,1 +1,15 @@
-<p>item-detail works!</p>
+<div class="item-card col-sm card card-cascade wider shadow mb-5 ">
+	<div class="imgDiv ratio ratio-1x1 view view-cascade overlay text-center" routerLink="/items/{{item.id}}"> 
+		<img class="card-img-top p-5" src="{{item.imageUrl}}" alt="{{item.name}}"> <a>
+		<div class="mask rgba-white-slight"></div>
+	</a> </div>
+
+	<div class="card-body card-body-cascade text-center">
+		<h4 class="card-title"><strong><a>{{item.name}}</a></strong></h4>
+		<p class="card-text">Description: {{item.description}}</p>
+		<p class="price">${{item.price}}</p>
+		<div class="card-footer text-muted">
+			<span class="btn btn-secondary btn-block" (click)="addToCart()">ADD TO CART</span>
+		</div>
+	</div>
+</div>
