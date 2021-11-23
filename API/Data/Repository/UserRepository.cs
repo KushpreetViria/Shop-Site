@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
-	//TODO:linq recursive calls using include() is pretty bad... improve it
 	public class UserRepository : IUserRepository
 	{
         private readonly DataContext _context;
@@ -29,6 +28,18 @@ namespace API.Data.Repository
 		public void update(AppUser user)
 		{
 			_context.Entry(user).State = EntityState.Modified;
+		}
+
+		public async Task<IEnumerable<AppUser>> GetUsersAsync()
+		{
+			return await _context.Users.ToListAsync();
+		}
+
+		public async Task<AppUser> GetUserAsync(string username)
+		{
+			return await _context.Users
+				.Where(x => x.UserName == username)
+				.FirstOrDefaultAsync();
 		}
 
 		public async Task<IEnumerable<UsersDetailDTO>> GetUsersDTOAsync()
@@ -62,6 +73,14 @@ namespace API.Data.Repository
 				.Select(p => p.Cart)
 				.ProjectTo<CartDTO>(_mapper.ConfigurationProvider)
 				.SingleOrDefaultAsync();
+		}
+
+		// this doesnt look right
+		public async Task<bool> doesItemExistInCart(string username, int Id){
+			return await _context.Users
+				.Where(x => x.UserName == username)
+				.Select(x => x.Cart.Items)
+				.AnyAsync(item => item.Any(x => x.Id == Id));
 		}
 	}
 }

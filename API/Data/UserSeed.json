@@ -10,89 +10,35 @@
 	  "Country": "Spain",
 	  "Orders":[
 		  {
-			"TotalCost":4.0,
-			"OrderDate":"2020-03-09",
+			"TotalCost":27.97,
+			"OrderDate":"2021-12-12",
 			"OrderDetials":[
 				{
-					"ItemName":"trashItem",
-					"Quantity":1,
-					"UnitPrice":1.50
+					"ItemName": "Pen",
+					"SellerName": "Bobby",
+					"Quantity": 10,
+					"sold": true,
+					"UnitPrice":2.30
 				},
 				{
-					"ItemName":"greatItem",
-					"Quantity":1,
-					"UnitPrice":2.50
+					"ItemName": "Paper",
+					"SellerName": "Rachelle",
+					"Quantity": 3,
+					"sold": true,
+					"UnitPrice":1.99
 				}
 			]
-		  },
-		  {
-			"TotalCost":1.0,
+		   },
+		   {
+			"TotalCost":0.0,
 			"OrderDate":"2020-12-12",
-			"OrderDetials":[
-				{
-					"ItemName":"ExcellentItem",
-					"Quantity":10,
-					"UnitPrice":0.10
-				}
-			]
+			"OrderDetials":[]
 		  }
-	  ],
+		],
 	  "Cart":{
-		  "Count":5,
+		  "Count":0,
 		  "DateCreated":"2019-01-08",
-		  "Items":[
-			{
-			  "SellerId": 10,
-			  "Name": "randomItem13",
-			  "Description": "Good",
-			  "DateListed": "2019-12-14",
-			  "Price": 21.4986,
-			  "ItemImage": {
-				"Url": "https://picsum.photos/200/300"
-			  }
-			},
-			{
-			  "SellerId": 1,
-			  "Name": "randomItem36",
-			  "Description": "Good",
-			  "DateListed": "2020-03-06",
-			  "Price": 4.1239,
-			  "ItemImage": {
-				"Url": "https://picsum.photos/200/300"
-			  }
-			},
-			{
-			  "SellerId": 0,
-			  "Name": "randomItem5",
-			  "Description": "Terrible",
-			  "DateListed": "2019-07-27",
-			  "Price": 47.6341,
-			  "ItemImage": {
-				"Url": "https://picsum.photos/200/300"
-			  }
-			},
-			{
-			  "SellerId": 2,
-			  "Name": "randomItem14",
-			  "Description": "Shit",
-			  "DateListed": "2019-05-05",
-			  "Price": 28.6906,
-			  "ItemImage": {
-				"Url": "https://picsum.photos/200/300"
-			  }
-			},
-			{
-			  "SellerId": 1,
-			  "Name": "randomItem95",
-			  "Description": "Terrible",
-			  "DateListed": "2019-08-01",
-			  "Price": 4.3226,
-			  "ItemImage": {
-				"Url": "https://picsum.photos/200/300"
-			  }
-			}
-		  ]
-
+		  "Items":[]
 	  }
 	},
 	{
@@ -113,7 +59,42 @@
 	  "LastName": "Guerra",
 	  "DateCreated": "2019-10-31",
 	  "City": "Caspar",
-	  "Country": "El Salvador"
+	  "Country": "El Salvador",
+	  "Orders":[
+		{
+		  "TotalCost":10.50,
+		  "OrderDate":"2020-03-09",
+		  "OrderDetials":[
+			  {
+				"ItemName": "Shoes",
+				"SellerName": "Rachelle",
+				"Quantity": 1,
+				"sold": false,
+				"UnitPrice":10.50
+			  }
+		  ]
+		},
+		{
+		  "TotalCost":23.59,
+		  "OrderDate":"2020-12-12",
+		  "OrderDetials":[
+			{
+				"ItemName": "Hat",
+				"SellerName": "Ada",
+				"Quantity": 2,
+				"sold": false,
+				"UnitPrice":4.30
+			},
+			{
+				"ItemName": "Pants",
+				"SellerName": "Bob",
+				"Quantity": 1,
+				"sold": false,
+				"UnitPrice":14.99
+			}
+		  ]
+		}
+	]
 	},
 	{
 	  "UserName": "Rachelle",
@@ -125,61 +106,9 @@
 	  "City": "Calverton",
 	  "Country": "Comoros",
 	  "Cart":{
-		"Count":3,
+		"Count":0,
 		"DateCreated":"2019-01-08",
-		"Items":[
-		  {
-			"SellerId": 22,
-			"Name": "randomItem10",
-			"Description": "Horriblr",
-			"DateListed": "2019-12-14",
-			"Price": 24.4986,
-			"ItemImage": {
-			  "Url": "https://picsum.photos/200/300"
-			}
-		  },
-		  {
-			"SellerId": 1,
-			"Name": "randomItem36",
-			"Description": "Good",
-			"DateListed": "2020-03-06",
-			"Price": 4.1239,
-			"ItemImage": {
-			  "Url": "https://picsum.photos/200/300"
-			}
-		  },
-		  {
-			"SellerId": 0,
-			"Name": "randomItem5",
-			"Description": "Terrible",
-			"DateListed": "2019-07-27",
-			"Price": 47.6341,
-			"ItemImage": {
-			  "Url": "https://picsum.photos/200/300"
-			}
-		  },
-		  {
-			"SellerId": 2,
-			"Name": "randomItem14",
-			"Description": "Shit",
-			"DateListed": "2019-05-05",
-			"Price": 28.6906,
-			"ItemImage": {
-			  "Url": "https://picsum.photos/200/300"
-			}
-		  },
-		  {
-			"SellerId": 1,
-			"Name": "randomItem95",
-			"Description": "Terrible",
-			"DateListed": "2019-08-01",
-			"Price": 4.3226,
-			"ItemImage": {
-			  "Url": "https://picsum.photos/200/300"
-			}
-		  }
-		]
-
+		"Items":[]
 	}
 	},
 	{

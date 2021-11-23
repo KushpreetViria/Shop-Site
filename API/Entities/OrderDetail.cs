@@ -8,7 +8,9 @@ namespace API.Entities
         public Order Order          { get; set; }
         public int OrderID          { get; set; }
         public string ItemName      { get; set; }
+        public string SellerName    { get; set; }
         public int Quantity         { get; set; }
+        public bool sold            { get; set; }
         public decimal UnitPrice    { get; set; }
     }
 }

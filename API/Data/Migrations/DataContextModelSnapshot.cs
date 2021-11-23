@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -95,6 +95,9 @@ namespace API.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AppUserID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DateListed")
                         .HasColumnType("TEXT");
 
@@ -107,10 +110,9 @@ namespace API.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SellerId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserID");
 
                     b.ToTable("Items");
                 });
@@ -175,8 +177,14 @@ namespace API.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("SellerName")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("sold")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -205,6 +213,17 @@ namespace API.Data.Migrations
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithOne("Cart")
                         .HasForeignKey("API.Entities.Cart", "AppUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("API.Entities.Item", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "AppUser")
+                        .WithMany("Items")
+                        .HasForeignKey("AppUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -262,6 +281,8 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Navigation("Cart");
+
+                    b.Navigation("Items");
 
                     b.Navigation("Orders");
                 });

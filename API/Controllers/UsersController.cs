@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Data.Repository;
 using API.DataTransferObj;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -15,10 +13,12 @@ namespace API.Controllers
 	public class UsersController : ApiBaseController
 	{
         private readonly IUserRepository _UserRepository;
+        private readonly IItemRepository _itemRepository;
 		private readonly IMapper _mapper;
 
-		public UsersController(IUserRepository userRepository, IMapper mapper)
+		public UsersController(IUserRepository userRepository, IItemRepository itemRepository, IMapper mapper)
 		{
+            this._itemRepository = itemRepository;
             this._UserRepository = userRepository;
 			this._mapper = mapper;
 		}
@@ -44,5 +44,43 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<OrderDTO>>> getCart(string username){
             return Ok(await _UserRepository.GetUserCartDTOAsync(username));
         }
+
+        //TODO: Abstract this away from here
+        [HttpPost("{username}/items")]
+        public async Task<ActionResult<ControllerBase>> addItemForSale(string username, [FromBody] ItemDTO itemDTO){
+            AppUser user = await _UserRepository.GetUserAsync(username);
+
+            if(user == null) return BadRequest();
+            if(user.Items == null) user.Items = new List<Item>();
+
+            Item itemEntity = _mapper.Map<ItemDTO,Item>(itemDTO);
+
+            user.Items.Add(itemEntity);
+            _UserRepository.update(user);
+
+            return await _UserRepository.SaveAllAsync() ? Ok("Item Added") : BadRequest();
+        }
+
+        // [HttpPost("{username}/cart")]
+        // public async Task<ActionResult<ControllerBase>> addItemToCart(string username, [FromBody] ItemDTO itemDTO){
+        //     Item item = await _itemRepository.GetItemAsync(itemDTO.Id);
+        //     AppUser user = await _UserRepository.GetUserAsync(username);
+            
+        //     if(user == null || item == null || 
+        //         await _UserRepository.doesItemExistInCart(username,item.Id)) BadRequest();
+
+        //     if(user.Cart == null) user.Cart = new Cart(){
+        //         Count = 0,
+        //         DateCreated = System.DateTime.Now
+        //     };
+
+        //     if(user.Cart.Items == null) user.Cart.Items = new List<Item>();
+
+        //     user.Cart.Items.Add(item);
+
+        //     _UserRepository.update(user);
+
+        //     return await _UserRepository.SaveAllAsync() ? Ok("Item Added") : BadRequest();
+        // }
 	}
 }

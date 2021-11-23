@@ -1,73 +1,36 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
-    public partial class addiontalEntities : Migration
+    public partial class entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Address",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "City",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Country",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DateCreated",
-                table: "Users",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DateOfBirth",
-                table: "Users",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "FirstName",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "PostalCode",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "State",
-                table: "Users",
-                type: "TEXT",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    passHash = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    passSalt = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    State = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
+                    PostalCode = table.Column<string>(type: "TEXT", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Cart",
@@ -96,7 +59,7 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    SellerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    AppUserID = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
@@ -105,6 +68,12 @@ namespace API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Items_Users_AppUserID",
+                        column: x => x.AppUserID,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,8 +149,10 @@ namespace API.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrderID = table.Column<int>(type: "INTEGER", nullable: false),
-                    ItemName = table.Column<string>(type: "TEXT", nullable: false),
+                    ItemName = table.Column<string>(type: "TEXT", nullable: true),
+                    SellerName = table.Column<string>(type: "TEXT", nullable: true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    sold = table.Column<bool>(type: "INTEGER", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -211,6 +182,11 @@ namespace API.Data.Migrations
                 table: "ItemImage",
                 column: "ItemID",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_AppUserID",
+                table: "Items",
+                column: "AppUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_AppUserID",
@@ -243,45 +219,8 @@ namespace API.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Order");
 
-            migrationBuilder.DropColumn(
-                name: "Address",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "City",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Country",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "DateCreated",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "DateOfBirth",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "FirstName",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "LastName",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "PostalCode",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "State",
-                table: "Users");
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

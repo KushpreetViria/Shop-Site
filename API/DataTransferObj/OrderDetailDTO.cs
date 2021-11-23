@@ -4,6 +4,8 @@ namespace API.DataTransferObj
 	{
         public string ItemName      { get; set; }
         public int Quantity         { get; set; }
+		public string SellerName      { get; set; }
         public decimal UnitPrice    { get; set; }
+		public bool sold            { get; set; }
 	}
 }

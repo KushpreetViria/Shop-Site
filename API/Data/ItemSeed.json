@@ -1,52 +1,47 @@
 [
 	{
-	  "SellerId": 10,
-	  "Name": "randomItem13",
-	  "Description": "Good",
+	  "Name": "Apple",
+	  "Description": "Good Taste",
 	  "DateListed": "2019-12-14",
-	  "Price": 21.4986,
+	  "Price": 4.49,
 	  "ItemImage": {
-		"url": "https://randomuser.me/api/portraits/women/51.jpg"
+		"Url": "https://usapple.org/wp-content/uploads/2019/10/apple-pink-lady.png"
 	  }
 	},
 	{
-	  "SellerId": 1,
-	  "Name": "randomItem36",
-	  "Description": "Good",
+	  "Name": "Banana",
+	  "Description": "Yum",
 	  "DateListed": "2020-03-06",
-	  "Price": 4.1239,
+	  "Price": 4.12,
 	  "ItemImage": {
-		"url": "https://randomuser.me/api/portraits/women/84.jpg"
+		"Url": "https://www.fresh2cook.com.au/wp-content/uploads/2021/09/Banana-Cavendish.jpeg"
 	  }
 	},
 	{
-	  "SellerId": 0,
-	  "Name": "randomItem5",
+	  "Name": "Hat",
 	  "Description": "Terrible",
 	  "DateListed": "2019-07-27",
-	  "Price": 47.6341,
+	  "Price": 15.63,
 	  "ItemImage": {
-		"url": "https://randomuser.me/api/portraits/women/11.jpg"
+		"Url": "https://images.lululemon.com/is/image/lululemon/LU9AJXS_045397_1?size=800,800"
 	  }
 	},
 	{
-	  "SellerId": 2,
-	  "Name": "randomItem14",
-	  "Description": "Shit",
+	  "Name": "Shoes",
+	  "Description": "horrible",
 	  "DateListed": "2019-05-05",
-	  "Price": 28.6906,
+	  "Price": 28.69,
 	  "ItemImage": {
-		"url": "https://randomuser.me/api/portraits/women/88.jpg"
+		"Url": "https://cdn.shopify.com/s/files/1/1184/8064/products/46-5736MRLW-J066950-081120-F21-032copy_500x500.jpg?v=1628350273"
 	  }
 	},
 	{
-	  "SellerId": 1,
-	  "Name": "randomItem95",
+	  "Name": "Shirt",
 	  "Description": "Terrible",
 	  "DateListed": "2019-08-01",
-	  "Price": 4.3226,
+	  "Price": 14.32,
 	  "ItemImage": {
-		"url": "https://randomuser.me/api/portraits/women/50.jpg"
+		"Url": "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/893E44B4248847338CD88E85BD79D361/10186027_r.jpg?fit=inside|220:220"
 	  }
 	}
   ]

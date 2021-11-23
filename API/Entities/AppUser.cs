@@ -23,6 +23,7 @@ namespace API.Entities
         public string Email         { get; set; }
 
         public ICollection<Order>  Orders   { get; set; }
+        public ICollection<Item>   Items    { get; set; }
         public DateTime DateCreated         { get; set; } = DateTime.Now;
         public Cart Cart { get; set; }
 

@@ -7,7 +7,8 @@ namespace API.Entities
     public class Item
     {
         public int Id               { get; set; }
-        public int SellerId         { get; set; }
+        public AppUser AppUser      { get; set; }
+        public int AppUserID        { get; set; }
         public ItemImage ItemImage  { get; set; }
         public string Name          { get; set; }
         public decimal Price        { get; set; }
