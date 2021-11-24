@@ -32,7 +32,10 @@ namespace API.Data.Repository
 
 		public async Task<IEnumerable<AppUser>> GetUsersAsync()
 		{
-			return await _context.Users.ToListAsync();
+			return await _context.Users
+				.Include(x=>x.Cart)
+				.Include(x=>x.Transactions)
+				.ToListAsync();
 		}
 
 		public async Task<AppUser> GetUserAsync(string username)
@@ -57,12 +60,12 @@ namespace API.Data.Repository
 				.SingleOrDefaultAsync();
 		}
 
-		public async Task<IEnumerable<OrderDTO>> GetUserOrderDTOAsync(string username)
+		public async Task<IEnumerable<TransactionDTO>> GetUserTransactionsDTOAsync(string username)
 		{
 			return await _context.Users
 				.Where(p => p.UserName == username)
-				.SelectMany(p => p.Orders)
-				.ProjectTo<OrderDTO>(_mapper.ConfigurationProvider)
+				.SelectMany(p => p.Transactions)
+				.ProjectTo<TransactionDTO>(_mapper.ConfigurationProvider)
 				.ToListAsync();
 		}
 

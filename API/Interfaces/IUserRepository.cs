@@ -16,7 +16,7 @@ namespace API.Interfaces
         Task<IEnumerable<UsersDetailDTO>> GetUsersDTOAsync();
         Task<UsersDetailDTO> GetUserDTOByUsernameAsync(string username);   
         
-        Task<IEnumerable<OrderDTO>> GetUserOrderDTOAsync(string username);
+        Task<IEnumerable<TransactionDTO>> GetUserTransactionsDTOAsync(string username);
         Task<CartDTO> GetUserCartDTOAsync(string username);
 
         Task<bool> doesItemExistInCart(string username, int Id);

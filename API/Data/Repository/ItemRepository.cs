@@ -42,14 +42,14 @@ namespace API.Data.Repository
 			throw new NotImplementedException();
 		}
 
-		public Task<bool> SaveAllAsync()
+		public async Task<bool> SaveAllAsync()
 		{
-			throw new NotImplementedException();
+			return await _context.SaveChangesAsync() > 0;
 		}
 
 		public void update(Item item)
 		{
-			throw new NotImplementedException();
+			_context.Entry(item).State = EntityState.Modified;
 		}
 	}
 }

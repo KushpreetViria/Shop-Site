@@ -22,9 +22,9 @@ namespace API.Entities
         public string LastName      { get; set; }
         public string Email         { get; set; }
 
-        public ICollection<Order>  Orders   { get; set; }
-        public ICollection<Item>   Items    { get; set; }
-        public DateTime DateCreated         { get; set; } = DateTime.Now;
+        public ICollection<Transaction>  Transactions   { get; set; }
+        public ICollection<Item>   Items                { get; set; }
+        public DateTime DateCreated                     { get; set; } = DateTime.Now;
         public Cart Cart { get; set; }
 
         // not really needed

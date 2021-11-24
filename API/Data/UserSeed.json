@@ -8,23 +8,22 @@
 	  "DateCreated": "2019-01-08",
 	  "City": "Marbury",
 	  "Country": "Spain",
-	  "Orders":[
+	  "Transactions":[
 		  {
 			"TotalCost":27.97,
-			"OrderDate":"2021-12-12",
-			"OrderDetials":[
+			"TransactionDate":"2021-12-12",
+			"sold": true,
+			"TransactionDetials":[
 				{
 					"ItemName": "Pen",
-					"SellerName": "Bobby",
+					"SellerBuyerName": "Bobby",
 					"Quantity": 10,
-					"sold": true,
 					"UnitPrice":2.30
 				},
 				{
 					"ItemName": "Paper",
-					"SellerName": "Rachelle",
+					"SellerBuyerName": "Rachelle",
 					"Quantity": 3,
-					"sold": true,
 					"UnitPrice":1.99
 				}
 			]
@@ -32,7 +31,15 @@
 		   {
 			"TotalCost":0.0,
 			"OrderDate":"2020-12-12",
-			"OrderDetials":[]
+			"sold": false,
+			"TransactionDetials":[
+				{
+					"ItemName": "randomItem",
+					"SellerBuyerName": "Jonny",
+					"Quantity": 3,
+					"UnitPrice":1.99
+				}
+			]
 		  }
 		],
 	  "Cart":{
@@ -60,16 +67,16 @@
 	  "DateCreated": "2019-10-31",
 	  "City": "Caspar",
 	  "Country": "El Salvador",
-	  "Orders":[
+	  "Transactions":[
 		{
 		  "TotalCost":10.50,
 		  "OrderDate":"2020-03-09",
-		  "OrderDetials":[
+		  "sold": false,
+		  "TransactionDetials":[
 			  {
 				"ItemName": "Shoes",
-				"SellerName": "Rachelle",
+				"SellerBuyerName": "Rachelle",
 				"Quantity": 1,
-				"sold": false,
 				"UnitPrice":10.50
 			  }
 		  ]
@@ -77,19 +84,18 @@
 		{
 		  "TotalCost":23.59,
 		  "OrderDate":"2020-12-12",
-		  "OrderDetials":[
+		  "sold": true,
+		  "TransactionDetials":[
 			{
 				"ItemName": "Hat",
-				"SellerName": "Ada",
+				"SellerBuyerName": "Ada",
 				"Quantity": 2,
-				"sold": false,
 				"UnitPrice":4.30
 			},
 			{
 				"ItemName": "Pants",
-				"SellerName": "Bob",
+				"SellerBuyerName": "Bob",
 				"Quantity": 1,
-				"sold": false,
 				"UnitPrice":14.99
 			}
 		  ]

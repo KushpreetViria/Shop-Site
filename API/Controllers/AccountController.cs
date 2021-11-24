@@ -22,7 +22,7 @@ namespace API.Controllers
 		}
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO){
+        public async Task<ActionResult<UserSessionDTO>> Register(RegisterDTO registerDTO){
             if(await existingUser(registerDTO.username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
             var user = new AppUser{
@@ -34,7 +34,7 @@ namespace API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new UserDTO
+            return new UserSessionDTO
             {
                 username = user.UserName,
                 token = _tokenService.CreateToken(user)
@@ -43,7 +43,7 @@ namespace API.Controllers
 
         //api/account/login
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO){
+        public async Task<ActionResult<UserSessionDTO>> Login(LoginDTO loginDTO){
             var user = await _context.Users.SingleOrDefaultAsync(x =>
                 x.UserName == loginDTO.username);
             
@@ -57,7 +57,7 @@ namespace API.Controllers
                     return Unauthorized("Invalid username/password");
             }
 
-            return new UserDTO
+            return new UserSessionDTO
             {
                 username = user.UserName,
                 token = _tokenService.CreateToken(user)

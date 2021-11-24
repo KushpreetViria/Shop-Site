@@ -36,12 +36,12 @@ namespace API.Controllers
         }
 
         [HttpGet("{username}/orders")]
-        public async Task<ActionResult<IEnumerable<OrderDTO>>> getOrders(string username){
-            return Ok(await _UserRepository.GetUserOrderDTOAsync(username));
+        public async Task<ActionResult<IEnumerable<TransactionDTO>>> getTransactions(string username){
+            return Ok(await _UserRepository.GetUserTransactionsDTOAsync(username));
         }
 
         [HttpGet("{username}/cart")]
-        public async Task<ActionResult<IEnumerable<OrderDTO>>> getCart(string username){
+        public async Task<ActionResult<IEnumerable<CartDTO>>> getCart(string username){
             return Ok(await _UserRepository.GetUserCartDTOAsync(username));
         }
 
@@ -61,26 +61,31 @@ namespace API.Controllers
             return await _UserRepository.SaveAllAsync() ? Ok("Item Added") : BadRequest();
         }
 
-        // [HttpPost("{username}/cart")]
-        // public async Task<ActionResult<ControllerBase>> addItemToCart(string username, [FromBody] ItemDTO itemDTO){
-        //     Item item = await _itemRepository.GetItemAsync(itemDTO.Id);
-        //     AppUser user = await _UserRepository.GetUserAsync(username);
+
+        //Error: userRepository and ItemRepository have 2 different instances of DbContext,
+        //calling update doesnt work because the contexts are not notified of changes in other
+        //contexts
+        [HttpPost("{username}/cart")]
+        public async Task<ActionResult<ControllerBase>> addItemToCart(string username, [FromBody] ItemDTO itemDTO){
+            Item item = await _itemRepository.GetItemAsync(itemDTO.Id);
+            AppUser user = await _UserRepository.GetUserAsync(username);
             
-        //     if(user == null || item == null || 
-        //         await _UserRepository.doesItemExistInCart(username,item.Id)) BadRequest();
+            if(user.Cart == null) user.Cart = new Cart(){
+                Count = 0,
+                DateCreated = System.DateTime.Now
+            };
+            if(user.Cart.Items == null) user.Cart.Items = new List<Item>();
 
-        //     if(user.Cart == null) user.Cart = new Cart(){
-        //         Count = 0,
-        //         DateCreated = System.DateTime.Now
-        //     };
+            if(user == null || item == null || 
+                await _UserRepository.doesItemExistInCart(username,item.Id)) BadRequest();
 
-        //     if(user.Cart.Items == null) user.Cart.Items = new List<Item>();
+            user.Cart.Items.Add(item);
 
-        //     user.Cart.Items.Add(item);
+            _itemRepository.update(item);
+            _UserRepository.update(user);
 
-        //     _UserRepository.update(user);
-
-        //     return await _UserRepository.SaveAllAsync() ? Ok("Item Added") : BadRequest();
-        // }
+            return await _UserRepository.SaveAllAsync() 
+                && await _itemRepository.SaveAllAsync() ? Ok("Item Added") : BadRequest();
+        }
 	}
 }

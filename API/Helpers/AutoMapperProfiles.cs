@@ -24,8 +24,8 @@ namespace API.Helpers
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
 
 
-            CreateMap<Order,OrderDTO>();
-            CreateMap<OrderDetail,OrderDetailDTO>();
+            CreateMap<Transaction,TransactionDTO>();
+            CreateMap<TransactionDetails,TransactionDetailsDTO>();
         }
 	}
 }

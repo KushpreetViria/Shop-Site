@@ -21,9 +21,9 @@ namespace API.DataTransferObj
         public string LastName      { get; set; }
         public string Email         { get; set; }
 
-        public ICollection<OrderDTO>  Orders    { get; set; }
-        public ICollection<ItemDTO>    Items    { get; set; }
-        public DateTime DateCreated             { get; set; }
-        public CartDTO Cart                     { get; set; }
+        public ICollection<TransactionDTO> Transactions     { get; set; }
+        public ICollection<ItemDTO> Items                   { get; set; }
+        public DateTime DateCreated                         { get; set; }
+        public CartDTO Cart                                 { get; set; }
     }
 }
