@@ -14,6 +14,7 @@ namespace API.Data
     public class Seed
     {
         public static async Task SeedUsers(DataContext context, ILogger logger){
+            // if it's a populated database dont do anythings
             if(await context.Users.AnyAsync() || await context.Items.AnyAsync()) return;
 
             // ----------- add users -----------

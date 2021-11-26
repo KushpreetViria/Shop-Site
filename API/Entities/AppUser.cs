@@ -4,9 +4,9 @@ using API.Extensions;
 
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser : Entity
     {
-        public int Id               { get; set; }
+        //public int Id               { get; set; }
         public string UserName      { get; set; }
         public byte[] passHash      { get; set; }
         public byte[] passSalt      { get; set; }

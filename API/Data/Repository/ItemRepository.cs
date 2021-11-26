@@ -6,6 +6,7 @@ using API.DataTransferObj;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
@@ -20,26 +21,19 @@ namespace API.Data.Repository
 			this._mapper = mapper;
 		}
 
-		public async Task<Item> GetItemAsync(int Id)
+		public async Task<IEnumerable<ItemDTO>> GetItemsDTOAsync()
+		{
+			return await _context.Items.Include(x => x.ItemImage)
+				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
+				.ToListAsync();
+		}
+
+		public async Task<ItemDTO> GetItemDTOAsync(int Id)
 		{
 			return await _context.Items
-				.Where(x => x.Id == Id)
+                .Where(p => p.Id == Id)
+				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
 				.FirstOrDefaultAsync();
-		}
-
-		public Task<IEnumerable<ItemDTO>> GetItemDTOAsync()
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<ItemDTO> GetItemDTOAsync(int Id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<IEnumerable<Item>> GetItemsAsync()
-		{
-			throw new NotImplementedException();
 		}
 
 		public async Task<bool> SaveAllAsync()

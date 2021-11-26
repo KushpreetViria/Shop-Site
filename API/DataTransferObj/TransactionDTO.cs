@@ -8,8 +8,8 @@ namespace API.DataTransferObj
 		public int Id									{ get; set; }
         public decimal TotalCost                        { get; set; }
         public DateTime TransactionDate                 { get; set; }
-		public bool sold            					{ get; set; }
+		public bool Sold            					{ get; set; }
         
-		public ICollection<TransactionDetailsDTO> OrderDetials    { get; set; }
+		public ICollection<TransactionDetailsDTO> TransactionDetails    { get; set; }
 	}
 }

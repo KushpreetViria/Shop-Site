@@ -11,12 +11,12 @@ namespace API.Helpers
 		{
             CreateMap<AppUser,UsersDetailDTO>()
                 .IncludeAllDerived();
+            
             CreateMap<Cart,CartDTO>();
+            
             CreateMap<Item,ItemDTO>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ItemImage.Url))
                 .ForMember(dest => dest.SellerId, opt => opt.MapFrom(src => src.AppUserID ));
-
-            //weird stuff, doing it manually for now
             CreateMap<ItemDTO,Item>()
                 .ForMember(dest => dest.DateListed, opt => opt.MapFrom(src => src.DateListed))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -25,7 +25,10 @@ namespace API.Helpers
 
 
             CreateMap<Transaction,TransactionDTO>();
+            CreateMap<TransactionDTO,Transaction>();
+
             CreateMap<TransactionDetails,TransactionDetailsDTO>();
+            CreateMap<TransactionDetailsDTO,TransactionDetails>();
         }
 	}
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DataTransferObj;
+using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
@@ -12,26 +13,19 @@ namespace API.Controllers
 {
     public class ItemsController : ApiBaseController
     {
-        private readonly DataContext _context;
-        private readonly IMapper _mapper;
-        public ItemsController(DataContext context, IMapper mapper){
-            this._context = context;
-            this._mapper = mapper;
+        private readonly IItemRepository _itemRepository;
+        public ItemsController(IItemRepository itemRepository){
+            this._itemRepository = itemRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemDTO>>> getItems(){
-            return await _context.Items.Include(x => x.ItemImage)
-				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
-				.ToListAsync();
+        public async Task<ActionResult<IEnumerable<ItemDTO>>> getItemsDTO(){
+            return Ok(await _itemRepository.GetItemsDTOAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ItemDTO>>> getItem(int id){
-            return await _context.Items
-                .Where(p => p.Id == id)
-				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
-				.ToListAsync();
+        public async Task<ActionResult<IEnumerable<ItemDTO>>> getItemDTO(int id){
+            return Ok(await _itemRepository.GetItemDTOAsync(id));
         }
     }
 }

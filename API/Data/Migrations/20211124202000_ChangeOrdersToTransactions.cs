@@ -22,7 +22,7 @@ namespace API.Migrations
                     AppUserID = table.Column<int>(type: "INTEGER", nullable: false),
                     TotalCost = table.Column<decimal>(type: "TEXT", nullable: false),
                     TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    sold = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Sold = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +109,7 @@ namespace API.Migrations
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     SellerName = table.Column<string>(type: "TEXT", nullable: true),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
-                    sold = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Sold = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

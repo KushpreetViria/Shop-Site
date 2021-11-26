@@ -155,7 +155,7 @@ namespace API.Migrations
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("sold")
+                    b.Property<bool>("Sold")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

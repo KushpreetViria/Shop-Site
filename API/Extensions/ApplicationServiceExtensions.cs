@@ -10,9 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace API.Extensions
 {
     public static class ApplicationServiceExtension
-    {
-        //extension method of IserviceCollection
-        //add anything you want injectable to this scope
+    {   
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config){
             services.AddScoped<ITokenService,TokenService>();
             services.AddScoped<IUserRepository,UserRepository>();

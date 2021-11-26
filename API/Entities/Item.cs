@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace API.Entities
 {
     //Holds info on a sellable item
-    public class Item
+    public class Item : Entity
     {
-        public int Id               { get; set; }
+        //public int Id               { get; set; }
         public AppUser AppUser      { get; set; }
         public int AppUserID        { get; set; }
         public ItemImage ItemImage  { get; set; }

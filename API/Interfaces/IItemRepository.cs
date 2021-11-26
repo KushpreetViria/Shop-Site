@@ -10,10 +10,7 @@ namespace API.Interfaces
         Task<bool> SaveAllAsync();
         void update(Item item);
 
-        Task<Item> GetItemAsync(int Id);
-        Task<IEnumerable<Item>> GetItemsAsync();
-
-        Task<IEnumerable<ItemDTO>> GetItemDTOAsync();
         Task<ItemDTO> GetItemDTOAsync(int Id);
+        Task<IEnumerable<ItemDTO>> GetItemsDTOAsync();
     }
 }

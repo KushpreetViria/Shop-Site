@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class ItemImage
+    public class ItemImage : Entity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public Item Item { get; set; }
         public int ItemID { get; set; }
         public string Url { get; set; }

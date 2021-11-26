@@ -7,7 +7,6 @@ namespace API.Controllers
 {
     public class BugController : ApiBaseController
     {
-        private readonly DataContext _context;
         public BugController(DataContext context){
             _context = context;
         }
