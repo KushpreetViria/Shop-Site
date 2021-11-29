@@ -3,8 +3,10 @@
 	transition-duration: 500ms;
 	transition-timing-function: ease-out;
 	opacity: 0.7;
+	overflow: hidden;
 }
 
 .imgDiv:hover{
 	cursor: pointer;
 }
+

@@ -1,13 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Item } from '../_models/item';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user'))?.token
-  })
-}
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +12,10 @@ export class ItemService {
   constructor(private http: HttpClient) { }
 
   getItems(){
-    return this.http.get<Item[]>(this.baseUrl + 'items',httpOptions);
+    return this.http.get<Item[]>(this.baseUrl + 'items');
   }
 
   getItem(id : number){
-    return this.http.get<Item>(this.baseUrl + "items/" + id,httpOptions);
+    return this.http.get<Item>(this.baseUrl + "items/" + id);
   }
 }

@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { UserSession } from './_models/user_session';
-import { AccountService } from './_services/account.service';
+import { UserSession } from '../_models/user_session';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +15,7 @@ export class AppComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    //this.getUsers();
-    this.setCurrentUser();
+    this.setCurrentUser(); //
   }
 
   setCurrentUser(){

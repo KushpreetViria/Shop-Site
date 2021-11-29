@@ -1,28 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 
+import { SharedModule } from './shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { ListsComponent } from './lists/lists.component';
-import { ItemListComponent } from './items/item-list/item-list.component';
-import { ItemDetailComponent } from './items/item-detail/item-detail.component';
-import { CartComponent } from './cart/cart.component';
-import { ContactComponent } from './contact/contact.component';
-import { AboutComponent } from './about/about.component';
-import { SharedModule } from './_modules/shared.module';
-import { TestErrorsComponent } from './Errors/test-errors/test-errors.component';
+import { AppComponent } from './components/app.component';
+import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './components/home/home.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ItemListComponent } from './components/items/item-list/item-list.component';
+import { ItemCardComponent } from './components/items/item-card/item-card.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { AboutComponent } from './components/about/about.component';
+import { ItemDetailsComponent } from './components/items/item-details/item-details.component';
+import { UserDetailsProfileComponent } from './components/users/user-details-profile/user-details-profile.component';
+
+import { TestErrorsComponent } from './components/errors/test-errors/test-errors.component';
+import { NotFoundComponent } from './components/errors/not-found/not-found.component';
+import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
+
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
-import { NotFoundComponent } from './Errors/not-found/not-found.component';
-import { ServerErrorComponent } from './Errors/server-error/server-error.component';
-import { UserDetailsComponent } from './users/user-details/user-details.component';
-import { UserListsComponent } from './users/user-lists/user-lists.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -30,17 +33,16 @@ import { UserListsComponent } from './users/user-lists/user-lists.component';
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    ListsComponent,
     ItemListComponent,
-    ItemDetailComponent,
+    ItemCardComponent,
+    ItemDetailsComponent,
     CartComponent,
     ContactComponent,
     AboutComponent,
     TestErrorsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    UserDetailsComponent,
-    UserListsComponent,
+    UserDetailsProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,9 +53,8 @@ import { UserListsComponent } from './users/user-lists/user-lists.component';
     SharedModule
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, 
-      useClass: ErrorInterceptor, 
-      multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,   multi: true}
   ],
   bootstrap: [AppComponent]
 })

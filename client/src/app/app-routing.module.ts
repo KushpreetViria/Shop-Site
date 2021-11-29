@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { CartComponent } from './cart/cart.component';
-import { ContactComponent } from './contact/contact.component';
-import { NotFoundComponent } from './Errors/not-found/not-found.component';
-import { ServerErrorComponent } from './Errors/server-error/server-error.component';
-import { TestErrorsComponent } from './Errors/test-errors/test-errors.component';
-import { HomeComponent } from './home/home.component';
-import { ItemDetailComponent } from './items/item-detail/item-detail.component';
-import { ItemListComponent } from './items/item-list/item-list.component';
-import { ListsComponent } from './lists/lists.component';
+import { AboutComponent } from './components/about/about.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { NotFoundComponent } from './components/errors/not-found/not-found.component';
+import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
+import { TestErrorsComponent } from './components/errors/test-errors/test-errors.component';
+import { HomeComponent } from './components/home/home.component';
+import { ItemCardComponent } from './components/items/item-card/item-card.component';
+import { ItemListComponent } from './components/items/item-list/item-list.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserDetailsProfileComponent } from './components/users/user-details-profile/user-details-profile.component';
 
 //array of objects, path is the path to the component
 const routes: Routes = [
@@ -21,8 +21,8 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     children:[
       {path: 'items', component: ItemListComponent},
-      {path: 'item/:id', component: ItemDetailComponent},
-      {path: 'lists', component: ListsComponent},
+      {path: 'item/:id', component: ItemCardComponent},
+      {path: 'profile', component: UserDetailsProfileComponent},
       {path: 'cart', component: CartComponent},
     ]
   },
