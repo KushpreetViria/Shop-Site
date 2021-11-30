@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './components/about/about.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/cart/cart/cart.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './components/errors/server-error/server-error.component';

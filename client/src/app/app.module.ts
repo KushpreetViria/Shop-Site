@@ -13,7 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ItemListComponent } from './components/items/item-list/item-list.component';
 import { ItemCardComponent } from './components/items/item-card/item-card.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from './components/cart/cart/cart.component';
+import { CartCardComponent } from './components/cart/cart-card/cart-card.component'
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
 import { ItemDetailsComponent } from './components/items/item-details/item-details.component';
@@ -37,6 +38,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     ItemCardComponent,
     ItemDetailsComponent,
     CartComponent,
+    CartCardComponent,
     ContactComponent,
     AboutComponent,
     TestErrorsComponent,

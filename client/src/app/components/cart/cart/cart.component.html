@@ -1,0 +1,25 @@
+<div class="container row text-center mx-auto justify-content-around">
+	<div class="container col-lg col-md-auto ">
+		<div class="shopping-cart-header">
+			<div class="shopping-cart-total">
+				<span class="lighter-text">Total: </span>
+				<span class="main-color-text">${{totalCost | number:'1.2-2'}}</span>
+			</div>
+		</div> <!--end shopping-cart-header -->
+		
+		
+		<div class="list-group list-group-flush align-items-center" *ngIf="myCart as cart">
+			<div class="list-group-item" *ngFor="let item of cart.items">
+				<app-cart-card [item]="item" (removeCartItem)="deleteItemFromCart($event)"></app-cart-card>
+			</div>
+		</div>
+		
+		<div class="footer">
+			<button class="btn btn-info mr-2" type="submit">Checkout</button>
+		</div>
+	</div>
+	<div class="container col-lg">
+		<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo quidem eligendi porro obcaecati enim quis, nam dicta. Aliquid exercitationem saepe iste quas perspiciatis maxime a minima eos! Magnam delectus, possimus beatae quod voluptates rerum eos labore mollitia odio repellat quia inventore veniam amet velit tempore magni eligendi id consequuntur quaerat!</p>
+		<p>Add some checkout interface here in the future</p>
+	</div>
+</div>
