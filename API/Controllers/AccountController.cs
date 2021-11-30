@@ -21,7 +21,7 @@ namespace API.Controllers
 		}
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserSessionDTO>> Register(RegisterDTO registerDTO){
+        public async Task<ActionResult<UserSessionDTO>> Register([FromBody] RegisterDTO registerDTO){
             if(await existingUser(registerDTO.username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
             var user = new AppUser{
@@ -42,7 +42,7 @@ namespace API.Controllers
 
         //api/account/login
         [HttpPost("login")]
-        public async Task<ActionResult<UserSessionDTO>> Login(LoginDTO loginDTO){
+        public async Task<ActionResult<UserSessionDTO>> Login([FromBody] LoginDTO loginDTO){
             var user = await _context.Users.SingleOrDefaultAsync(x =>
                 x.UserName == loginDTO.username);
             

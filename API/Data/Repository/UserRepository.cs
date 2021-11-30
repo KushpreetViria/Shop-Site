@@ -91,7 +91,7 @@ namespace API.Data.Repository
 			AppUser user = await this.GetUserAsync(username);
 			Item item = await _context.Items.FindAsync(itemID);
 			
-			if(user != null && item!=null && user.Cart.Items != null &&
+			if(item!=null && user?.Cart?.Items != null &&
 				await doesItemExistInCart(username,itemID)){
 					user.Cart.Items?.Remove(item);
 					if(user.Cart.Count > 0) user.Cart.Count--;
@@ -109,7 +109,7 @@ namespace API.Data.Repository
 		public async Task<IEnumerable<ItemDTO>> GetUserItemsDTOAsync(string username)
 		{
 			AppUser user = await this.GetUserAsync(username);
-			if(user != null && user.Items != null){
+			if(user?.Items != null){
 				return await _context.Users
 					.Where(p => p.UserName == username)
 					.SelectMany(p => p.Items)
