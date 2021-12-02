@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DataTransferObj;
 using API.Entities;
+using API.Errors;
 
 namespace API.Interfaces
 {
@@ -14,15 +15,15 @@ namespace API.Interfaces
         Task<UsersDetailDTO> GetUserDTOByUsernameAsync(string username);
                 
         Task<CartDTO> GetUserCartDTOAsync(string username);
-        Task<bool> AddItemForUserCartAsync(string username, int itemID);
-        Task<bool> RemoveItemFromUserCartAsync(string username, int itemID);
+        Task<DbResult> AddItemForUserCartAsync(string username, int itemID);
+        Task<DbResult> RemoveItemFromUserCartAsync(string username, int itemID);
         
         Task<IEnumerable<ItemDTO>> GetUserItemsDTOAsync(string username);
-        Task<bool> AddItemForUserAsync(string username, ItemDTO itemDTO);
-        Task<bool> RemoveItemFromUser(string username, int itemID);
+        Task<DbResult> AddItemForUserAsync(string username, ItemDTO itemDTO);
+        Task<DbResult> RemoveItemFromUser(string username, int itemID);
 
         Task<IEnumerable<TransactionDTO>> GetUserTransactionsDTOAsync(string username);
-        Task<bool> AddNewUserTransactionAsync(string username, TransactionDTO transactionDTO);
-        Task<bool> RemoveUserTransactionAsync(string username, int TransactionID);
+        Task<DbResult> AddNewUserTransactionAsync(string username, TransactionDTO transactionDTO);
+        Task<DbResult> RemoveUserTransactionAsync(string username, int TransactionID);
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DataTransferObj;
 using API.Entities;
+using API.Errors;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -62,14 +63,18 @@ namespace API.Data.Repository
 				return null;
 			}
 		}
-		public async Task<bool> AddItemForUserCartAsync(string username, int itemID)
+		public async Task<DbResult> AddItemForUserCartAsync(string username, int itemID)
 		{
 			Item item = await _context.Items.FindAsync(itemID);
             AppUser user = await this.GetUserAsync(username);
 
-			// ignore if duplicate addition or null references
-			if(user == null || item == null ||
-                await this.doesItemExistInCart(username,itemID)) return false;
+			// ignore if duplicate addition or null references			
+			DbResult nullEntites = isEntityNull(user,item);
+			if(nullEntites.Success){
+				return new DbResult(false,nullEntites.Details);
+			}else if((await this.doesItemExistInCart(username,itemID)).Success){
+				return new DbResult(false, "Item already added to cart");
+			}
 
 			// instantiate user cart
 			if(user.Cart == null) 
@@ -84,23 +89,30 @@ namespace API.Data.Repository
 			user.Cart.Count++;
             user.Cart.Items.Add(item);
 
-            return await this.SaveAllAsync() ? true : false;
+            return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to add item.");
 		}
-		public async Task<bool> RemoveItemFromUserCartAsync(string username, int itemID)
+		public async Task<DbResult> RemoveItemFromUserCartAsync(string username, int itemID)
 		{
 			AppUser user = await this.GetUserAsync(username);
 			Item item = await _context.Items.FindAsync(itemID);
 			
-			if(item!=null && user?.Cart?.Items != null &&
-				await doesItemExistInCart(username,itemID)){
-					user.Cart.Items?.Remove(item);
-					if(user.Cart.Count > 0) user.Cart.Count--;
-					if(user.Cart.Count <= 0){
-						user.Cart = null;
-					}
-				}
+			DbResult nullEntities = isEntityNull(user,item,user?.Cart);
+			if(nullEntities.Success){
+				return new DbResult(false,nullEntities.Details);
+			}else if(user.Cart.Items == null){
+				return new DbResult(false,"Cart is empty already.");
+			}else if(!(await doesItemExistInCart(username,itemID)).Success){
+				return new DbResult(false, "This item is not in the cart.");
+			}
 
-			return await this.SaveAllAsync();
+			//item does exist, remove it
+			user.Cart.Items.Remove(item);
+			if(user.Cart.Count > 0) user.Cart.Count--;
+			if(user.Cart.Count <= 0){
+				user.Cart = null;
+			}
+
+			return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false, "Failed to remove item.");
 		}
 
 
@@ -119,11 +131,15 @@ namespace API.Data.Repository
 				return null;
 			}
 		}
-		public async Task<bool> AddItemForUserAsync(string username, ItemDTO itemDTO)
+		public async Task<DbResult> AddItemForUserAsync(string username, ItemDTO itemDTO)
 		{
 			AppUser user = await this.GetUserAsync(username);
 
-            if(user == null) return false;
+			DbResult nullEntities = isEntityNull(user);
+            if(nullEntities.Success){
+				return new DbResult(false, nullEntities.Details);
+			}
+
             if(user.Items == null) user.Items = new List<Item>();
 
             Item itemEntity = _mapper.Map<ItemDTO,Item>(itemDTO);
@@ -133,9 +149,9 @@ namespace API.Data.Repository
             
             this.update(user);
 
-            return await this.SaveAllAsync() ? true : false;
+            return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to add item for user.");
 		}
-		public async Task<bool> RemoveItemFromUser(string username, int itemID)
+		public async Task<DbResult> RemoveItemFromUser(string username, int itemID)
 		{
 			AppUser user = await this.GetUserAsync(username);
 			Item item = await _context.Items
@@ -143,7 +159,12 @@ namespace API.Data.Repository
 				.Include(x => x.Carts)
 				.SingleOrDefaultAsync();
 
-			if(user != null && user.Items != null && item != null){
+			DbResult nullEntities = isEntityNull(user,item);
+            if(nullEntities.Success){
+				return new DbResult(false, nullEntities.Details);
+			}
+
+			if(user.Items != null){
 				foreach(var cart in item.Carts){
 					cart.Count--;
 				}
@@ -152,7 +173,7 @@ namespace API.Data.Repository
 				_context.Items.Remove(item);
 			}
 
-			return await this.SaveAllAsync();
+			return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to remove item from system.");
 		}
 
 
@@ -166,11 +187,16 @@ namespace API.Data.Repository
 				.ProjectTo<TransactionDTO>(_mapper.ConfigurationProvider)
 				.ToListAsync();
 		}
-		public async Task<bool> AddNewUserTransactionAsync(string username, TransactionDTO transactionDTO)
+		public async Task<DbResult> AddNewUserTransactionAsync(string username, TransactionDTO transactionDTO)
 		{
 			AppUser user = await this.GetUserAsync(username);
-
 			Transaction transaction = _mapper.Map<TransactionDTO,Transaction>(transactionDTO);			
+
+			DbResult nullEntities = isEntityNull(user,transaction);
+            if(nullEntities.Success){
+				return new DbResult(false, nullEntities.Details);
+			}
+
 			if(transaction.TransactionDetails == null) transaction.TransactionDetails = new List<TransactionDetails>();
 
 			transaction.TotalCost = 0;
@@ -182,36 +208,46 @@ namespace API.Data.Repository
 			if(user.Transactions == null) user.Transactions = new List<Transaction>();
 			user.Transactions.Add(transaction);
 
-			return await this.SaveAllAsync() ? true : false;
+			return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false, "Failed to add transaction history.");
 		}
-		public async Task<bool> RemoveUserTransactionAsync(string username, int TransactionID)
+
+		public async Task<DbResult> RemoveUserTransactionAsync(string username, int TransactionID)
 		{
 			AppUser user = await this.GetUserAsync(username);
+			DbResult nullEntities = isEntityNull(user);
+            if(nullEntities.Success){
+				return new DbResult(false, nullEntities.Details);
+			}
 
-			if(user != null && user.Transactions != null){
-				Transaction transactionToRemove = await _context.Users
+			if(user.Transactions != null){
+				Transaction transactionToRemove = await _context.Users?
 					.Where(x=> x.UserName == username)
 					.SelectMany(x => x.Transactions)
 					.Where(x => x.Id == TransactionID)
 					.SingleOrDefaultAsync();
+				
+				if(isEntityNull(transactionToRemove).Success) return new DbResult(false, "No such transaction exists");
 					
 				user.Transactions.Remove(transactionToRemove);
+			}else{
+				return new DbResult(false,"No transaction to remove");
 			}
-			return await this.SaveAllAsync();
+			return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to remove transaction");
 		}
 
 
 
 		//-------------- helper methods --------------//
-		private async Task<bool> doesItemExistInCart(string username, int Id){
-			return await _context.Users
+		private async Task<DbResult> doesItemExistInCart(string username, int Id){
+			bool result =  await _context.Users
 				.Where(x => x.UserName == username)
 				.SelectMany(x => x.Cart.Items)
 				.AnyAsync(item => item.Id == Id);
+			return new DbResult(result);
 		}
 		
 		//Generic and inefficient in queries where not all the included data is needed
-		//TODO: use more personalized methods that only includes whats actually needed
+		//TODO: use more specific queries that only includes whats actually needed
 		private async Task<AppUser> GetUserAsync(string username)
 		{
 			return await _context.Users				
@@ -225,6 +261,15 @@ namespace API.Data.Repository
 				.AsSplitQuery()
 				.OrderBy(x=> x.Id) //to remove the annoying warning
 				.SingleOrDefaultAsync();
+		}
+
+		private DbResult isEntityNull(params Entity[] entities){
+			foreach(Entity entity in entities){
+				if(entity == null){
+					return new DbResult(true,$"The {entity.GetType().Name} does not exist.");
+				}
+			}
+			return new DbResult(false);
 		}
 	}
 }

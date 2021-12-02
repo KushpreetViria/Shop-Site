@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DataTransferObj;
+using API.Errors;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -34,9 +35,9 @@ namespace API.Controllers
         //------------- user cart -------------//
         [HttpPut("{username}/cart")]
         public async Task<ActionResult<ControllerBase>> addItemToCart(string username, [FromQuery] int id){
-            if(await _UserRepository.AddItemForUserCartAsync(username,id)) return Ok();
-            //else
-            return BadRequest("Something went wrong while trying to add item to cart.");
+            DbResult result = await _UserRepository.AddItemForUserCartAsync(username,id);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
         [HttpGet("{username}/cart")]
         public async Task<ActionResult<IEnumerable<CartDTO>>> getUserCart(string username){
@@ -44,17 +45,17 @@ namespace API.Controllers
         }
         [HttpDelete("{username}/cart")]
         public async Task<ActionResult<ControllerBase>> RemoveItemFromUserCartAsync(string username, [FromQuery] int id){
-            if(await _UserRepository.RemoveItemFromUserCartAsync(username,id)) return Ok();
-            //else
-            return BadRequest("Something went wrong while trying to remove item from cart.");
+            DbResult result = await _UserRepository.RemoveItemFromUserCartAsync(username,id);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
         
         //------------- user items -------------//
         [HttpPost("{username}/items")]
         public async Task<ActionResult<ControllerBase>> addItemForSale(string username, [FromBody] ItemDTO itemDTO){
-            if(await _UserRepository.AddItemForUserAsync(username,itemDTO)) return Ok();
-            //else
-            return BadRequest("Something went wrong while trying to add the item.");
+            DbResult result = await _UserRepository.AddItemForUserAsync(username,itemDTO);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
         [HttpGet("{username}/items")]
         public async Task<ActionResult<IEnumerable<CartDTO>>> getUserItems(string username){
@@ -62,17 +63,17 @@ namespace API.Controllers
         }
         [HttpDelete("{username}/items")]
         public async Task<ActionResult<ControllerBase>> RemoveItemFromUser(string username, [FromQuery] int id){
-            if(await this._UserRepository.RemoveItemFromUser(username,id)) return Ok();
-            //else
-            return BadRequest("Failed to remove item.");
+            DbResult result = await this._UserRepository.RemoveItemFromUser(username,id);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
 
         //------------- user transactions -------------// probably dont need the post (adding transactiosn should be done server side)
         [HttpPost("{username}/transactions")]
         public async Task<ActionResult<ControllerBase>> addNewTransaction(string username, [FromBody] TransactionDTO transactionDTO){
-            if(await _UserRepository.AddNewUserTransactionAsync(username,transactionDTO)) return Ok();
-            //else
-            return BadRequest("Something went wrong while adding the transaction.");
+            DbResult result = await _UserRepository.AddNewUserTransactionAsync(username,transactionDTO);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
         [HttpGet("{username}/transactions")]
         public async Task<ActionResult<IEnumerable<TransactionDTO>>> getUserTransactions(string username){
@@ -80,9 +81,9 @@ namespace API.Controllers
         }
         [HttpDelete("{username}/transactions")]
         public async Task<ActionResult<ControllerBase>> deleteTransaction(string username,[FromQuery] int id){
-            if(await this._UserRepository.RemoveUserTransactionAsync(username,id)) return Ok();
-            //else
-            return BadRequest("Failed to remove transaction");
+            DbResult result = await this._UserRepository.RemoveUserTransactionAsync(username,id);
+            if(result.Success) return Ok();
+            else return BadRequest(result.Details);
         }
 	}
 }
