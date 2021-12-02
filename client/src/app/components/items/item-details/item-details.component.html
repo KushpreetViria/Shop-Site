@@ -1,1 +1,34 @@
-<p>item-details works!</p>
+<div class="row" *ngIf="item">
+	<div class="col-5 mx-auto">
+		<div class="card">			
+			<div class="card-body">
+				<div>
+					<strong>Name:</strong>
+					<p>{{item.name}}</p>
+				</div>
+				<div>
+					<strong>Price:</strong>
+					<p>{{item.price}}</p>
+				</div>
+				<div>
+					<strong>Description:</strong>
+					<p>{{item.description}}</p>
+				</div>
+				<div>
+					<strong>Date listed:</strong>
+					<p>{{item.dateListed}}</p>
+				</div>
+				<div>
+					<strong>Seller Id:</strong>
+					<p>{{item.sellerId}}</p>
+				</div>
+			</div>
+			<div class="card-footer align-self-center">
+					<button class="btn btn-primary" (click)="addToCart()">Add To Cart</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-5 mx-auto">
+		<img src="{{item.imageUrl || './assets/Default_Item.png'}}" alt="{{item.name}}" class="card-img img-thumbnail">
+	</div>
+</div>

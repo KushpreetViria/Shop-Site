@@ -7,10 +7,10 @@ import { NotFoundComponent } from './components/errors/not-found/not-found.compo
 import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
 import { TestErrorsComponent } from './components/errors/test-errors/test-errors.component';
 import { HomeComponent } from './components/home/home.component';
-import { ItemCardComponent } from './components/items/item-card/item-card.component';
 import { ItemListComponent } from './components/items/item-list/item-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserDetailsProfileComponent } from './components/users/user-details-profile/user-details-profile.component';
+import { ItemDetailsComponent } from './components/items/item-details/item-details.component';
 
 //array of objects, path is the path to the component
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     children:[
       {path: 'items', component: ItemListComponent},
-      {path: 'item/:id', component: ItemCardComponent},
+      {path: 'items/:id', component: ItemDetailsComponent},
       {path: 'profile', component: UserDetailsProfileComponent},
       {path: 'cart', component: CartComponent},
     ]
