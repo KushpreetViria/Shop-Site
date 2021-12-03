@@ -1,31 +1,25 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserDetails } from '../_models/user_details';
+import { AccountService } from './account.service';
 
 //for updating / changing user profile info
 @Injectable({
   providedIn: 'root'
 })
 export class UserDetailsService {
-  baseUrl = environment.apiUrl
+  baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private accountService:AccountService) {}
 
-  getUsers() : Observable<UserDetails[]> {
-    return this.http.get<UserDetails[]>(this.baseUrl + 'users');
+  getUser() {
+    return this.http.get<UserDetails>(this.baseUrl + 'users/self');
   }
 
-  getUser(username : string){
-    return this.http.get<UserDetails>(this.baseUrl + 'users/' + username);
-  }
-
-  getUserCart(username : string){
-    return this.http.get<UserDetails>(this.baseUrl+'users/'+username+'/cart');
-  }
-
-  getUserOrders(username: string){
-    return this.http.get<UserDetails[]>(this.baseUrl+'users/'+username+'/orders');
+  //move this to its own service ...
+  getUserTransactions(){
+    return this.http.get<UserDetails[]>(this.baseUrl+'users/transactions');
   }
 }

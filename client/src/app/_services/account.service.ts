@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { pipe, ReplaySubject } from 'rxjs';
 import {map, take} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<UserSession>(1);
   currentUser$ = this.currentUserSource.asObservable();
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router) { }
   
   login(model: any){
     return this.http.post<UserSession>(this.baseUrl + 'account/login',model).pipe(
@@ -33,6 +34,7 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user:UserSession) => {
         if(user){
+          this.logout();
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user);
         }
@@ -40,9 +42,10 @@ export class AccountService {
     );
   }
     
-    logout() {
+    logout() {      
       localStorage.removeItem('user');
-      this.currentUserSource.next(null);
+      this.currentUserSource.next(null);      
+      window.location.reload();
     }
     
     setCurrentUser(user : UserSession){

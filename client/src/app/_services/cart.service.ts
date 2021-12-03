@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Cart } from '../_models/cart';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +12,24 @@ import { Cart } from '../_models/cart';
 
 export class CartService {
   baseUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) { }
-
+  cartUrl = "users/cart";
+  
+  constructor(private http: HttpClient,private accountService: AccountService) {}
+  
   getCart() : Observable<Cart>{
-    var username = JSON.parse(localStorage.getItem('user'))["username"];
-    return this.http.get<Cart>(this.baseUrl + `users/${username}/cart`)
+    return this.http.get<Cart>(this.baseUrl + this.cartUrl)
   }
-
+  
   addItemToCart(itemID:number){
-    var username = JSON.parse(localStorage.getItem('user'))["username"];
-    return this.http.put(this.baseUrl + `users/${username}/cart`,{},
-    { params:{ id:itemID } }
+    return this.http.put(this.baseUrl + this.cartUrl,{},
+      { params:{ id:itemID } }
     );
-  };
-
+  }
+    
   removeItemFromCart(itemID:number){
-    var username = JSON.parse(localStorage.getItem('user'))["username"];
-    return this.http.delete(this.baseUrl + `users/${username}/cart`, 
-    { params:{ id:itemID } }
-    );
-  };
+    return this.http.delete(this.baseUrl + this.cartUrl, 
+      { params:{ id:itemID } }
+      );
+    }
 }
+    
