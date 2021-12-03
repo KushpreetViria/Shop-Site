@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DataTransferObj;
+using API.Entities;
 using API.Errors;
 using API.Interfaces;
 using AutoMapper;
@@ -16,10 +17,12 @@ namespace API.Controllers
 	public class UsersController : ApiBaseController
 	{
         private readonly IUserRepository _UserRepository;
+        private readonly IMapper _mapper;
 
 		public UsersController(IUserRepository userRepository, IMapper mapper)
 		{
             this._UserRepository = userRepository;
+            this._mapper = mapper;
 		}
 
         //api/users
@@ -33,13 +36,21 @@ namespace API.Controllers
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return await _UserRepository.GetUserDTOByUsernameAsync(username);
         }
+        [HttpPut("self")]
+        public async Task<ActionResult> UpdateUserDetails([FromBody] UserDetailUpdateDTO userDetailUpdateDTO){            
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            DbResult result = await _UserRepository.updateUser(username,userDetailUpdateDTO);
+
+            if(result.Success) return NoContent();
+            else return BadRequest(result.Details);
+        }
 
         //------------- user cart -------------//
         [HttpPut("cart")]
         public async Task<ActionResult<ControllerBase>> addItemToCart([FromQuery] int id){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await _UserRepository.AddItemForUserCartAsync(username,id);
-            if(result.Success) return Ok();
+            if(result.Success) return NoContent();
             else return BadRequest(result.Details);
         }
         [HttpGet("cart")]
@@ -51,7 +62,7 @@ namespace API.Controllers
         public async Task<ActionResult<ControllerBase>> RemoveItemFromUserCartAsync([FromQuery] int id){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await _UserRepository.RemoveItemFromUserCartAsync(username,id);
-            if(result.Success) return Ok();
+            if(result.Success)return NoContent();
             else return BadRequest(result.Details);
         }
         
@@ -60,7 +71,7 @@ namespace API.Controllers
         public async Task<ActionResult<ControllerBase>> addItemForSale([FromBody] ItemDTO itemDTO){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await _UserRepository.AddItemForUserAsync(username,itemDTO);
-            if(result.Success) return Ok();
+            if(result.Success) return NoContent();
             else return BadRequest(result.Details);
         }
         [HttpGet("items")]
@@ -72,7 +83,7 @@ namespace API.Controllers
         public async Task<ActionResult<ControllerBase>> RemoveItemFromUser([FromQuery] int id){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await this._UserRepository.RemoveItemFromUser(username,id);
-            if(result.Success) return Ok();
+            if(result.Success) return NoContent();
             else return BadRequest(result.Details);
         }
 
@@ -81,7 +92,7 @@ namespace API.Controllers
         public async Task<ActionResult<ControllerBase>> addNewTransaction([FromBody] TransactionDTO transactionDTO){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await _UserRepository.AddNewUserTransactionAsync(username,transactionDTO);
-            if(result.Success) return Ok();
+            if(result.Success) return NoContent();
             else return BadRequest(result.Details);
         }
         [HttpGet("transactions")]
@@ -93,7 +104,7 @@ namespace API.Controllers
         public async Task<ActionResult<ControllerBase>> deleteTransaction([FromQuery] int id){
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             DbResult result = await this._UserRepository.RemoveUserTransactionAsync(username,id);
-            if(result.Success) return Ok();
+            if(result.Success) return NoContent();
             else return BadRequest(result.Details);
         }
 	}

@@ -21,15 +21,46 @@ namespace API.Data.Repository
 			this._mapper = mapper;
 		}
 
-		public async Task<bool> SaveAllAsync()
+		private async Task<bool> SaveAllAsync()
 		{
 			return await _context.SaveChangesAsync() > 0;
 		}
-		public void update(Entity entity)
+		private void update(Entity entity)
 		{
 			_context.Entry(entity).State = EntityState.Modified;
 		}
 
+
+		public async Task<AppUser> GetUserAsync(string username)
+		{
+			return await _context.Users				
+				.Include(x => x.Items)
+				.ThenInclude(x=> x.ItemImage)
+				.Include(x => x.Cart)
+				.ThenInclude(x => x.Items)
+				.Include(x=>x.Transactions)
+				.ThenInclude(x=>x.TransactionDetails)
+				.Where(x => x.UserName == username)
+				.AsSplitQuery()
+				.OrderBy(x=> x.Id) //to remove the annoying warning
+				.SingleOrDefaultAsync();
+		}
+
+		public async Task<DbResult> updateUser(string username, UserDetailUpdateDTO userDetailUpdateDTO){
+			AppUser user = await this.GetUserAsync(username);
+
+			DbResult nullEntites = isEntityNull(user);
+			if(nullEntites.Success){
+				return new DbResult(false,nullEntites.Details);
+			}
+
+            this._mapper.Map(userDetailUpdateDTO,user);
+			user.FullAddress = user.GetFullAddress();
+			
+            this.update(user);			
+
+            return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to update user");
+		}
 
 
 		//-------------- Usesr DTO Actions --------------//
@@ -246,23 +277,6 @@ namespace API.Data.Repository
 				.SelectMany(x => x.Cart.Items)
 				.AnyAsync(item => item.Id == Id);
 			return new DbResult(result);
-		}
-		
-		//Generic and inefficient in queries where not all the included data is needed
-		//TODO: use more specific queries that only includes whats actually needed
-		private async Task<AppUser> GetUserAsync(string username)
-		{
-			return await _context.Users				
-				.Include(x => x.Items)
-				.ThenInclude(x=> x.ItemImage)
-				.Include(x => x.Cart)
-				.ThenInclude(x => x.Items)
-				.Include(x=>x.Transactions)
-				.ThenInclude(x=>x.TransactionDetails)
-				.Where(x => x.UserName == username)
-				.AsSplitQuery()
-				.OrderBy(x=> x.Id) //to remove the annoying warning
-				.SingleOrDefaultAsync();
 		}
 
 		private DbResult isEntityNull(params Entity[] entities){

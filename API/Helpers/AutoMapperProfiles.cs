@@ -29,6 +29,8 @@ namespace API.Helpers
 
             CreateMap<TransactionDetails,TransactionDetailsDTO>();
             CreateMap<TransactionDetailsDTO,TransactionDetails>();
+
+            CreateMap<UserDetailUpdateDTO,AppUser>();
         }
 	}
 }
