@@ -11,6 +11,7 @@ namespace API.Entities
         public byte[] passHash      { get; set; }
         public byte[] passSalt      { get; set; }
 
+        public string FullAddress   { get; set; }
         public string Address       { get; set; }
         public string City          { get; set; }
         public string State         { get; set; }
@@ -34,11 +35,11 @@ namespace API.Entities
         }
 
         public string GetFullAddress(){
-            if(string.IsNullOrEmpty(this.Address) && string.IsNullOrEmpty(this.City) && string.IsNullOrEmpty(this.State) &&
-                string.IsNullOrEmpty(this.Country) && string.IsNullOrEmpty(this.PostalCode)){
+            if(!(string.IsNullOrEmpty(this.Address) || string.IsNullOrEmpty(this.City) || string.IsNullOrEmpty(this.State) ||
+                string.IsNullOrEmpty(this.Country) || string.IsNullOrEmpty(this.PostalCode))){
                 return $"{this.Address}, {this.City}, {this.State}, {this.Country}, {this.PostalCode}";
             }else{
-                return null;
+                return "";
             }
         }
     }
