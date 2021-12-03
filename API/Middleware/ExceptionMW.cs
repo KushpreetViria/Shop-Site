@@ -27,6 +27,18 @@ namespace API.Middleware
         public async Task InvokeAsync(HttpContext context){
             try{
                 await _next(context);
+            }catch(Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException e){
+                _logger.LogError(e, e.Message);
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int) HttpStatusCode.NotFound;
+                var res =  new APIException(context.Response.StatusCode,"This resource does not exist.",
+                    "An attempt was made to alter the same resouce 2 or more times concurrently.");
+
+                var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+                var json = JsonSerializer.Serialize(res,options);
+
+                await context.Response.WriteAsync(json);
+
             }catch(Exception e){
                 _logger.LogError(e, e.Message);
                 context.Response.ContentType = "application/json";

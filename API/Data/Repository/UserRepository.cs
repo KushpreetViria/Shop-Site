@@ -25,9 +25,9 @@ namespace API.Data.Repository
 		{
 			return await _context.SaveChangesAsync() > 0;
 		}
-		public void update(Entity user)
+		public void update(Entity entity)
 		{
-			_context.Entry(user).State = EntityState.Modified;
+			_context.Entry(entity).State = EntityState.Modified;
 		}
 
 
@@ -112,6 +112,8 @@ namespace API.Data.Repository
 				user.Cart = null;
 			}
 
+			update(user);
+			update(item);
 			return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false, "Failed to remove item.");
 		}
 
