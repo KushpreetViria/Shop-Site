@@ -26,6 +26,7 @@ import { ServerErrorComponent } from './components/errors/server-error/server-er
 
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { EditUserDetailsProfileComponent } from './components/users/edit-user-details-profile/edit-user-details-profile.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     UserDetailsProfileComponent,
+    EditUserDetailsProfileComponent,
   ],
   imports: [
     BrowserModule,

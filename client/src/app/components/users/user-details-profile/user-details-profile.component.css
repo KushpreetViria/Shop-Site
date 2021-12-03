@@ -1,0 +1,20 @@
+.main-container{
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.header>.full-name{
+    display: flex;
+    flex-direction: row;
+}

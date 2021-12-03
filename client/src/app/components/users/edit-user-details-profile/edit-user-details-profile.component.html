@@ -1,0 +1,53 @@
+<div class="main-container" *ngIf="user">
+	<h1 class="text-center">YOUR PROFILE</h1>
+	<div class="alert alert-info text-center" *ngIf="editForm.dirty">
+        <b>ALERT: </b>You have made changes.  Any unsaved changes will be lost.
+	</div>
+	<form #editForm="ngForm" class="row" (ngSubmit)="updateUserDetails()">
+		<div class="form col-6">
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input [(ngModel)]="user.username" type="text" name="username" class="form-control" placeholder="Cant actually update this ... just space filler">
+			</div>
+			<div class="form-group">
+				<label for="firstname">First Name: </label>
+				<input [(ngModel)]="user.firstName" type="text" class="form-control" name="firstName" placeholder="First name">
+			</div>
+			<div class="form-group">
+				<label for="lastname">Last Name: </label>
+				<input [(ngModel)]="user.lastName" type="text" class="form-control" name="lastName" placeholder="Last Name">
+			</div>
+			<div class="form-group">
+				<label for="dateOfBirth">Date of Birth: </label>
+				<input [(ngModel)]="user.dateOfBirth" type="date" class="form-control" name="dateOfBirth" placeholder="Date of Birth">
+			</div>
+			<div class="form-group">
+				<label for="email">Email: </label>
+				<input [(ngModel)]="user.email" type="email" class="form-control" name="email" placeholder="Email">
+			</div>
+		</div>
+		<div class="form col-6">
+			<div class="form-group">
+				<label for="Country">Country: </label>
+				<input [(ngModel)]="user.country" type="text" name="country" class="form-control" name="country" placeholder="Country">
+			</div>
+			<div class="form-group">
+				<label for="state">State: </label>
+				<input [(ngModel)]="user.state" type="text" name="state" class="form-control" name="state" placeholder="State">
+			</div>
+			<div class="form-group">
+				<label for="city">City: </label>
+				<input [(ngModel)]="user.city" type="text" name="city" class="form-control" name="city" placeholder="City">
+			</div>
+			<div class="form-group">
+				<label for="address">Address: </label>
+				<input [(ngModel)]="user.address" type="text" name="address" class="form-control" name="address" placeholder="Street Address">
+			</div>
+			<div class="form-group">
+				<label for="postal">Postal Code: </label>
+				<input [(ngModel)]="user.postalCode" type="text" name="postal" class="form-control" name="postalCode" placeholder="Postal Code">
+			</div>
+		</div>
+		<button [disabled]="!editForm.dirty" type="submit" class="btn btn-success btn-block">Save Changes</button>
+	</form>
+</div>

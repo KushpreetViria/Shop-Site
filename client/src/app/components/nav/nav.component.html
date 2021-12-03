@@ -23,9 +23,12 @@
 			<a class="dropdown-toggle text-light" dropdownToggle style="text-decoration-line: none;">
 				WELCOME {{user.username}}!</a>
 			<div class="dropdown-menu mt-3" *bsDropdownMenu>
-				<a class="dropdown-item" routerLink="/">Edit profile</a>
-				<!-- <div class="dropdown-divider"></div> -->
+				<a class="dropdown-item" routerLink="/profile/my-profile">Edit profile</a>
 				<a class="dropdown-item" drop routerLink="/cart">My Cart <i class="fa fa-shopping-cart cart-icon"></i></a>
+				<!-- routerLink="/profile/my-items" -->
+				<!-- routerLink="/transaction/my-transactions" -->
+				<a class="dropdown-item" drop >My Items</a>
+				<a class="dropdown-item" drop >My Transactions</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" (click)="logout()">Logout</a>
 			</div>

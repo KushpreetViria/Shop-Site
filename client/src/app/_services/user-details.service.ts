@@ -18,6 +18,10 @@ export class UserDetailsService {
     return this.http.get<UserDetails>(this.baseUrl + 'users/self');
   }
 
+  updateUser(userDetails : UserDetails){
+    return this.http.put(this.baseUrl+'users/self',userDetails);
+  }
+
   //move this to its own service ...
   getUserTransactions(){
     return this.http.get<UserDetails[]>(this.baseUrl+'users/transactions');

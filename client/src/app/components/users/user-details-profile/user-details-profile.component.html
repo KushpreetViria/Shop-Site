@@ -1,1 +1,44 @@
-<p>user-details works!</p>
+<div class="main-container" *ngIf="user">
+	<h1>YOUR PROFILE</h1>
+	<div *ngIf="missingDetails" class="border border-danger p-1 m-3">
+		<span class="alert alert-warning">Your profile is missing information!</span>
+		<button class="btn btn-danger p-2 m-2" routerLink="/profile/edit">Edit Profile</button>
+	</div>	
+	<div class="header">
+		<div>
+			<span class="lighter-text">Username: </span>
+			<span class="main-color-text">{{user.username}}</span>
+		</div>
+		<div class="full-name">
+			<div class="m-2">
+				<span class="lighter-text">First Name: </span>
+				<span class="main-color-text">{{user.firstName || "UNAVAILABLE"}}</span>
+			</div>
+			<div class="m-2">
+				<span class="lighter-text">Last Name: </span>
+				<span class="main-color-text">{{user.lastName || "UNAVAILABLE"}}</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="list-group list-group-flush">
+		<div class="list-group-item text-center">
+			<div class="card p-3 m-2">
+				<strong>Email: {{user.email || "UNAVAILABLE"}}</strong>
+			</div>
+			<div class="card p-3 m-2">
+				<strong>Full Address: {{user.fullAddress || "UNAVAILABLE"}}</strong>
+			</div>
+			<div class="card p-3 m-2">
+				<strong>Date of Birth: {{user.dateOfBirth || "UNAVAILABLE"}}</strong>
+			</div>
+			<div class="card p-3 m-2">
+				<strong>Date of Account creation: {{user.dateCreated}}</strong>
+			</div>
+		</div>
+	</div>
+	
+	<div *ngIf="!missingDetails" class="footer">
+		<button class="btn btn-danger p-2 m-2" routerLink="/profile/edit">Edit Profile</button>
+	</div>
+</div>

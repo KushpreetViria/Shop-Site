@@ -1,6 +1,6 @@
 
 export interface UserSession {
-	username: String;
-	token: String;
+	username: string;
+	token: string;
 }
 

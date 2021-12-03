@@ -11,6 +11,8 @@ import { ItemListComponent } from './components/items/item-list/item-list.compon
 import { AuthGuard } from './_guards/auth.guard';
 import { UserDetailsProfileComponent } from './components/users/user-details-profile/user-details-profile.component';
 import { ItemDetailsComponent } from './components/items/item-details/item-details.component';
+import { EditUserDetailsProfileComponent } from './components/users/edit-user-details-profile/edit-user-details-profile.component';
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 //array of objects, path is the path to the component
 const routes: Routes = [
@@ -20,9 +22,34 @@ const routes: Routes = [
     runGuardsAndResolvers:'always',
     canActivate:[AuthGuard],
     children:[
-      {path: 'items', component: ItemListComponent},
-      {path: 'items/:id', component: ItemDetailsComponent},
-      {path: 'profile', component: UserDetailsProfileComponent},
+      {
+        path: 'items',
+        children:[
+          {
+            path:'',
+            //pathMatch: "full",
+            component: ItemListComponent
+          },
+          { 
+            path: ':id',
+            component: ItemDetailsComponent
+          }
+        ]
+      },
+      {
+        path: 'profile',
+        children:[
+          { 
+            path: 'my-profile',
+            component: UserDetailsProfileComponent
+          },
+          {
+            path: 'edit',
+            component: EditUserDetailsProfileComponent,
+            canDeactivate: [PreventUnsavedChangesGuard]
+          }
+        ]
+      },
       {path: 'cart', component: CartComponent},
     ]
   },
