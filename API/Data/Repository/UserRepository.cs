@@ -79,8 +79,7 @@ namespace API.Data.Repository
 		}
 
 
-
-		//-------------- Usesr Cart Actions --------------//
+		//-------------- User Cart Actions --------------//
 		public async Task<CartDTO> GetUserCartDTOAsync(string username)
 		{
 			AppUser user = await this.GetUserAsync(username);
@@ -111,6 +110,7 @@ namespace API.Data.Repository
 			if(user.Cart == null) 
 				user.Cart = new Cart()
 				{
+					TotalCost = 0,
 					Count = 0,
 					DateCreated = System.DateTime.Now,
 				};
@@ -119,6 +119,7 @@ namespace API.Data.Repository
 			//add the item to the cart
 			user.Cart.Count++;
             user.Cart.Items.Add(item);
+			user.Cart.TotalCost = addCurrency(user.Cart.TotalCost,item.Price);
 
             return await this.SaveAllAsync() ? new DbResult(true) : new DbResult(false,"Failed to add item.");
 		}
@@ -138,7 +139,10 @@ namespace API.Data.Repository
 
 			//item does exist, remove it
 			user.Cart.Items.Remove(item);
-			if(user.Cart.Count > 0) user.Cart.Count--;
+			if(user.Cart.Count > 0){
+				user.Cart.Count--;
+				user.Cart.TotalCost = substractCurrency(user.Cart.TotalCost,item.Price);
+			}
 			if(user.Cart.Count <= 0){
 				user.Cart = null;
 			}
@@ -198,8 +202,9 @@ namespace API.Data.Repository
 			}
 
 			if(user.Items != null){
-				foreach(var cart in item.Carts){
+				foreach(Cart cart in item.Carts){
 					cart.Count--;
+					cart.TotalCost = substractCurrency(cart.TotalCost,item.Price);
 				}
 
 				user.Items.Remove(item); //is this needed? test later
@@ -270,7 +275,7 @@ namespace API.Data.Repository
 
 
 
-		//-------------- helper methods --------------//
+		//-------------- helper functions --------------//
 		private async Task<DbResult> doesItemExistInCart(string username, int Id){
 			bool result =  await _context.Users
 				.Where(x => x.UserName == username)
@@ -279,13 +284,29 @@ namespace API.Data.Repository
 			return new DbResult(result);
 		}
 
-		private DbResult isEntityNull(params Entity[] entities){
+		private static DbResult isEntityNull(params Entity[] entities){
 			foreach(Entity entity in entities){
 				if(entity == null){
 					return new DbResult(true,$"The {entity.GetType().Name} does not exist.");
 				}
 			}
 			return new DbResult(false);
+		}
+
+		private static decimal addCurrency(params decimal[] numbers){
+			decimal total = 0;
+			foreach(decimal num in numbers){
+				total += num*100;
+			}
+			return total/100;
+		}
+
+		private static decimal substractCurrency(decimal original, params decimal[] numbers){
+			decimal total = original;
+			foreach(decimal num in numbers){
+				total -= num*100;
+			}
+			return total/100;
 		}
 	}
 }

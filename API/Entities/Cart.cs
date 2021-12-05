@@ -8,6 +8,7 @@ namespace API.Entities
         //public int      Id          { get; set; }
         public AppUser  AppUser     { get; set; }
         public int      AppUserID   { get; set; }
+        public decimal  TotalCost   { get; set; }
         public int      Count       { get; set; }
         public DateTime DateCreated { get; set; }
 

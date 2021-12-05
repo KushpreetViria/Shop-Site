@@ -42,11 +42,7 @@
 			]
 		  }
 		],
-	  "Cart":{
-		  "Count":0,
-		  "DateCreated":"2019-01-08",
-		  "Items":[]
-	  }
+	  "Cart":null
 	},
 	{
 	  "UserName": "Ada",
@@ -111,11 +107,7 @@
 	  "DateCreated": "2019-05-31",
 	  "City": "Calverton",
 	  "Country": "Comoros",
-	  "Cart":{
-		"Count":0,
-		"DateCreated":"2019-01-08",
-		"Items":[]
-	}
+	  "Cart":null
 	},
 	{
 	  "UserName": "Marisa",

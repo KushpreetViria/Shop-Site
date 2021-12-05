@@ -45,9 +45,9 @@ namespace API.Data
             await context.SaveChangesAsync();
 
             // ----------- create a cart for 3 users -----------
-            createCart(context,await context.Users.FindAsync(1));
-            createCart(context,await context.Users.FindAsync(2));
-            createCart(context,await context.Users.FindAsync(3));
+            // createCart(context,await context.Users.FindAsync(1));
+            // createCart(context,await context.Users.FindAsync(2));
+            // createCart(context,await context.Users.FindAsync(3));
 
             await context.SaveChangesAsync();
         }
