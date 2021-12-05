@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Item } from 'src/app/_models/item';
-import { ItemService} from 'src/app/_services/item-service.service';
+import { ItemService} from 'src/app/_services/item.service';
 
 @Component({
   selector: 'app-item-list',
@@ -8,7 +9,7 @@ import { ItemService} from 'src/app/_services/item-service.service';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-  items: Item[];
+  items$: Observable<Item[]>;
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
@@ -16,8 +17,7 @@ export class ItemListComponent implements OnInit {
   }
 
   loadItems(){
-    this.itemService.getItems().subscribe(items =>
-      this.items = items);
+    this.items$ = this.itemService.getItems();
   }
 
   toStringItem(item : Item) : string {

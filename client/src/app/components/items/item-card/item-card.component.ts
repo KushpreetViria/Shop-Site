@@ -16,7 +16,7 @@ export class ItemCardComponent implements OnInit {
   }
   
   addToCart(){
-    this.cartService.addItemToCart(this.item.id).subscribe((x) => {
+    this.cartService.addItemToCart(this.item).subscribe((x) => {
       this.toastrService.info("Item added to cart: " + this.item.name);
     });
   }

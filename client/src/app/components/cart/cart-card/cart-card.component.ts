@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Item } from 'src/app/_models/item';
 import { CartService } from 'src/app/_services/cart.service';
 
@@ -9,7 +10,7 @@ import { CartService } from 'src/app/_services/cart.service';
 })
 export class CartCardComponent implements OnInit {
   @Input() item : Item;
-  @Output() removeCartItem = new EventEmitter();
+ // @Output() removeCartItem = new EventEmitter();
   hideMe : boolean //how to actually delete dynamically created component?
 
   constructor(private cartService : CartService) { }
@@ -19,10 +20,9 @@ export class CartCardComponent implements OnInit {
   }
 
   removeItem() {
-    this.cartService.removeItemFromCart(this.item.id).subscribe(x => {
-    this.removeCartItem.emit(this.item.id);
-    });
-    this.hideMe = true;
+    this.cartService.removeItemFromCart(this.item).pipe(map(() => {
+      this.hideMe = true;
+    })).subscribe();
   }
 
 }

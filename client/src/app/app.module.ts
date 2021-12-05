@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
@@ -27,6 +27,7 @@ import { ServerErrorComponent } from './components/errors/server-error/server-er
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { EditUserDetailsProfileComponent } from './components/users/edit-user-details-profile/edit-user-details-profile.component';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 
 @NgModule({
@@ -54,11 +55,13 @@ import { EditUserDetailsProfileComponent } from './components/users/edit-user-de
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,    
   ],
+  //schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,   multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor,   multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor,   multi: true}
   ],
   bootstrap: [AppComponent]
 })

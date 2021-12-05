@@ -1,16 +1,17 @@
 <div class="container row text-center mx-auto justify-content-around">
-	<div class="container col-lg col-md-auto ">
+	<div class="container col-lg col-md-auto" *ngIf="(myCart | async) as cart">
 		<div class="shopping-cart-header">
 			<div class="shopping-cart-total">
 				<span class="lighter-text">Total: </span>
-				<span class="main-color-text">${{totalCost | number:'1.2-2'}}</span>
+				<span class="main-color-text">${{cart.totalCost || 0.00}}</span>
+					<!-- || (myCart | async).totalCost}}</span> -->
 			</div>
 		</div> <!--end shopping-cart-header -->
 		
 		
-		<div class="list-group list-group-flush align-items-center" *ngIf="myCart as cart">
+		<div class="list-group list-group-flush align-items-center">
 			<div class="list-group-item" *ngFor="let item of cart.items">
-				<app-cart-card [item]="item" (removeCartItem)="deleteItemFromCart($event)"></app-cart-card>
+				<app-cart-card [item]="item"></app-cart-card> <!--(removeCartItem)="deleteItemFromCart($event)"-->
 			</div>
 		</div>
 		

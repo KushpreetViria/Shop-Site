@@ -55,7 +55,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.router.navigateByUrl('/500-server-error',navigationExtras);
             break;
             default:
-              this.toastr.error(err.error);
+              this.toastr.error("An unexpected error occured");
               console.log(err);
             break;
           }

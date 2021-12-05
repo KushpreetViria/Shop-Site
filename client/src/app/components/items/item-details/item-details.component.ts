@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/_models/item';
 import { CartService } from 'src/app/_services/cart.service';
-import { ItemService } from 'src/app/_services/item-service.service';
+import { ItemService } from 'src/app/_services/item.service';
 
 @Component({
   selector: 'app-item-details',
@@ -30,7 +30,7 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   addToCart(){
-    this.cartService.addItemToCart(this.item.id).subscribe((x) => {
+    this.cartService.addItemToCart(this.item).subscribe((x) => {
       this.toastrService.info("Item added to cart: " + this.item.name);
     });
   }

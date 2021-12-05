@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserDetails } from '../_models/user_details';
 import { AccountService } from './account.service';
@@ -12,14 +13,22 @@ import { AccountService } from './account.service';
 export class UserDetailsService {
   baseUrl = environment.apiUrl;
 
+  private _myUserDetails : UserDetails = null;
+
   constructor(private http: HttpClient,private accountService:AccountService) {}
 
   getUser() {
-    return this.http.get<UserDetails>(this.baseUrl + 'users/self');
+    if(this._myUserDetails !== null) return of(this._myUserDetails)
+    return this.http.get<UserDetails>(this.baseUrl + 'users/self').pipe(map(user => {
+      this._myUserDetails = user;
+      return user;
+    }));
   }
 
   updateUser(userDetails : UserDetails){
-    return this.http.put(this.baseUrl+'users/self',userDetails);
+    return this.http.put(this.baseUrl+'users/self',userDetails).pipe(map( () => {
+      this._myUserDetails = null;
+    }));
   }
 
   //move this to its own service ...
