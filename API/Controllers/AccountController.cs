@@ -1,3 +1,5 @@
+//api/account route --
+
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
-{
+{    
+
+    /*
+        .../api/account route -- used for account actions like login and register
+    */
+
 	public class AccountController : ApiBaseController
 	{
 		private readonly ITokenService _tokenService;
@@ -40,7 +47,6 @@ namespace API.Controllers
             };
         }
 
-        //api/account/login
         [HttpPost("login")]
         public async Task<ActionResult<UserSessionDTO>> Login([FromBody] LoginDTO loginDTO){
             var user = await _context.Users.SingleOrDefaultAsync(x =>

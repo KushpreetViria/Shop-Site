@@ -10,6 +10,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services
 {
+	
+	/*
+		TokenService: Creates a new jwt bearer token that contains the username of the user as a claim
+	*/
+
 	public class TokenService : ITokenService
 	{
         private readonly SymmetricSecurityKey _key;

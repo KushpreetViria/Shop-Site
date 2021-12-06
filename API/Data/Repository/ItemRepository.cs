@@ -11,6 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
+
+	/*
+        A repository that handles communication to the database item table and mapping to DTOs
+    */
+
 	public class ItemRepository : IItemRepository
 	{
 		private readonly DataContext _context;

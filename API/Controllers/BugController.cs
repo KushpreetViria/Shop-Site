@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    /*
+        ...api/bug route -- only used for testing the server responces
+    */
+
     public class BugController : ApiBaseController
     {
         public BugController(DataContext context){

@@ -11,6 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data.Repository
 {
+	/*
+		Handles operations on user table of database.
+	*/
+
 	public class UserRepository : IUserRepository
 	{
         private readonly DataContext _context;
@@ -55,7 +59,6 @@ namespace API.Data.Repository
 			}
 
             this._mapper.Map(userDetailUpdateDTO,user);
-			user.FullAddress = user.GetFullAddress();
 			
             this.update(user);			
 
@@ -217,6 +220,7 @@ namespace API.Data.Repository
 
 
 		//-------------- User Transaction actions -------------- //
+		// TODO: Move transaction methods to their own repository, probably will only be called on server side
 		public async Task<IEnumerable<TransactionDTO>> GetUserTransactionsDTOAsync(string username)
 		{
 			return await _context.Users
@@ -237,11 +241,11 @@ namespace API.Data.Repository
 
 			if(transaction.TransactionDetails == null) transaction.TransactionDetails = new List<TransactionDetails>();
 
+			transaction.TransactionDate = System.DateTime.Now;
 			transaction.TotalCost = 0;
 			foreach(var transactioninfo in transaction.TransactionDetails){
 				transaction.TotalCost += (transactioninfo.UnitPrice * transactioninfo.Quantity);	
-			}
-			transaction.TransactionDate = System.DateTime.Now;
+			}			
 
 			if(user.Transactions == null) user.Transactions = new List<Transaction>();
 			user.Transactions.Add(transaction);

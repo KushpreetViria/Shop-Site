@@ -9,6 +9,12 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Middleware
 {
+
+    /*
+        A HTTP middleware that catches exceptions and creates an appropriate 
+        HTTP response (rather then always respond with stack trace).
+    */
+
     public class ExceptionMW
     {
 		private readonly RequestDelegate _next;
@@ -25,9 +31,11 @@ namespace API.Middleware
 		}
 
         public async Task InvokeAsync(HttpContext context){
-            try{
+            try{                                                                     //let the HTTP request pass, but catch an exception if it occurs.
                 await _next(context);
-            }catch(Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException e){
+
+            }catch(Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException e){   //attempt to accsss same database resource by 2 different threads.
+
                 _logger.LogError(e, e.Message);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int) HttpStatusCode.NotFound;
@@ -39,7 +47,8 @@ namespace API.Middleware
 
                 await context.Response.WriteAsync(json);
 
-            }catch(Exception e){
+            }catch(Exception e){                                                           //something in the code broke, return a 500 error response.
+
                 _logger.LogError(e, e.Message);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;

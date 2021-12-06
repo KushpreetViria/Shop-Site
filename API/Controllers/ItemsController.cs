@@ -11,6 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    /*
+        .../api/items route -- for actions involving the item table only
+    */
+
     public class ItemsController : ApiBaseController
     {
         private readonly IItemRepository _itemRepository;

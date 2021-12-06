@@ -11,6 +11,10 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Data
 {
+    /*
+        Populates the database with data from UserSeed.json and ItemSeed.json files
+    */
+    
     public class Seed
     {
         public static async Task SeedUsers(DataContext context, ILogger logger){

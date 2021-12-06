@@ -8,6 +8,10 @@ namespace API.Extensions
 {
     public static class IdentityServiceExtensions
     {
+    /*
+        Additional authentication services
+    */
+
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config){
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {

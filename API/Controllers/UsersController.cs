@@ -9,10 +9,15 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-//TODO: Get more descriptive error results rather then just a bool.
-
 namespace API.Controllers
 {
+
+    /*
+      .../api/users/ route -- for actions involving what the user can do. 
+      Includes add/remove from the cart, transaction list or the item list.
+      Also get and update user information as well.
+    */
+
     [Authorize]
 	public class UsersController : ApiBaseController
 	{

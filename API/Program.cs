@@ -19,9 +19,9 @@ namespace API
             var logger = services.GetRequiredService<ILogger<Program>>();
             try{
                 var context = services.GetRequiredService<DataContext>();
-                await context.Database.EnsureDeletedAsync(); //delete database
-                await context.Database.MigrateAsync();  // Create it from scratch
-                await Seed.SeedUsers(context,logger);
+                await context.Database.EnsureDeletedAsync();                // delete database
+                await context.Database.MigrateAsync();                      // Create it from scratch
+                await Seed.SeedUsers(context,logger);                       // seed the database
             }catch(Exception ex){
                 logger.LogError(ex, "An error occured during migration");
             }

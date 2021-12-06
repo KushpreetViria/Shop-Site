@@ -29,10 +29,6 @@ namespace API.Entities
         public Cart Cart { get; set; }
 
         // not really needed
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
 
         public string GetFullAddress(){
             if(!(string.IsNullOrEmpty(this.Address) || string.IsNullOrEmpty(this.City) || string.IsNullOrEmpty(this.State) ||

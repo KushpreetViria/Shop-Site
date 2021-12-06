@@ -7,21 +7,22 @@ namespace API.Helpers
 {
 	public class AutoMapperProfiles : Profile
 	{
+        /*
+            Configurations for automapper to map between DTOs and entity objects.
+        */
+
 		public AutoMapperProfiles()
 		{
             CreateMap<AppUser,UsersDetailDTO>()
-                .IncludeAllDerived();
+                .IncludeAllDerived()
+                .ForMember(dest => dest.FullAddress, opt => opt.MapFrom(x => x.GetFullAddress()));
             
             CreateMap<Cart,CartDTO>();
             
             CreateMap<Item,ItemDTO>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ItemImage.Url))
                 .ForMember(dest => dest.SellerId, opt => opt.MapFrom(src => src.AppUserID ));
-            CreateMap<ItemDTO,Item>()
-                .ForMember(dest => dest.DateListed, opt => opt.MapFrom(src => src.DateListed))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
+            CreateMap<ItemDTO,Item>();
 
 
             CreateMap<Transaction,TransactionDTO>();
@@ -30,7 +31,10 @@ namespace API.Helpers
             CreateMap<TransactionDetails,TransactionDetailsDTO>();
             CreateMap<TransactionDetailsDTO,TransactionDetails>();
 
-            CreateMap<UserDetailUpdateDTO,AppUser>();
-        }
-	}
+            CreateMap<UserDetailUpdateDTO,AppUser>()
+                .AfterMap((UserDetailUpdateDTO src,AppUser dest) => {
+                    dest.FullAddress = dest.GetFullAddress();
+                });
+    	}
+    }
 }
