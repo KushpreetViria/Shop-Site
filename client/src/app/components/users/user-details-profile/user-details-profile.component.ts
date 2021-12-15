@@ -23,10 +23,15 @@ export class UserDetailsProfileComponent implements OnInit {
     this.userDetailService.getUser().subscribe(user =>{
       this.user = user;
 
+      // checks if one of the editable profile properties is empty
       for(const property in this.user){
-        if((property != 'id' && property != 'username') && !this.user[property]){
-          this.missingDetails = true;
-          break;
+        if(!(property === 'id' ||
+            property === 'username' ||
+            property === 'cart' ||
+            property === 'items' ||
+            property === 'transactions') && !this.user[property]){
+              this.missingDetails = true;
+              break;
         }
       }
     })
