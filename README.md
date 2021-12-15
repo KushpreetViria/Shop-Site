@@ -6,7 +6,7 @@
 ## Build instructions
 ### To run backend API:
 - [ASP.NET 5](https://dotnet.microsoft.com/en-us/apps/aspnet) Framework installed:
-- I'm using ***ASP.NET 5.0.404***
+    - I'm using ***ASP.NET 5.0.404***
 - Change directory to \API folder
 - Execute `dotnet run` in project
     - Default: http://localhost:5000 and https://localhost:5001
