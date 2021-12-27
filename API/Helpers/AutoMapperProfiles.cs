@@ -20,10 +20,10 @@ namespace API.Helpers
             CreateMap<Cart,CartDTO>();
             
             CreateMap<Item,ItemDTO>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ItemImage.Url))
+                .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.ItemImage.ImagePath))
                 .ForMember(dest => dest.SellerId, opt => opt.MapFrom(src => src.AppUserID ));
-            CreateMap<ItemDTO,Item>();
-
+            CreateMap<ItemDTO,Item>()
+                .ForMember(dest => dest.ItemImage.ImagePath, opt => opt.MapFrom(src => src.ImagePath));
 
             CreateMap<Transaction,TransactionDTO>();
             CreateMap<TransactionDTO,Transaction>();
