@@ -1,5 +1,5 @@
 <div class="item-card col-sm card card-cascade wider shadow mb-5 ">
-	<div class="imgDiv ratio ratio-1x1 view view-cascade overlay text-center" routerLink="/items/{{item.id}}"> 
+	<div class="imgDiv ratio ratio-1x1 view view-cascade overlay text-center"> 
 		<img class="card-img-top p-5" src="{{item.imagePath || './assets/Default_Item.png'}}" alt="{{item.name}}"> <a>
 		<div class="mask rgba-white-slight"></div>
 	</a> </div>
@@ -9,7 +9,7 @@
 		<p class="card-text">Description: {{item.description}}</p>
 		<p class="price">${{item.price}}</p>
 		<div class="card-footer text-muted">
-			<span class="btn btn-secondary btn-block" (click)="addToCart()">ADD TO CART</span>
+			<span class="btn btn- btn-warning" routerLinkActive="" routerLink="./update/{{item.id}}">Edit Item</span>
 		</div>
 	</div>
 </div>

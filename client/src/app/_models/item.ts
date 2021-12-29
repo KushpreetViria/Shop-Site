@@ -1,7 +1,7 @@
 export class Item {
         id: number;
         sellerId: number;
-        imageUrl?: string;
+        imagePath?: string;
         name: string;
         price: number;
         description?: string;

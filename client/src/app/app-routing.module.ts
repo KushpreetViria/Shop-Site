@@ -13,56 +13,76 @@ import { UserDetailsProfileComponent } from './components/users/user-details-pro
 import { ItemDetailsComponent } from './components/items/item-details/item-details.component';
 import { EditUserDetailsProfileComponent } from './components/users/edit-user-details-profile/edit-user-details-profile.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { MyItemsComponent } from './components/items/my-items/my-items.component';
+import { AddItemComponent } from './components/items/add-item/add-item.component';
+import { UpdateItemComponent } from './components/items/update-item/update-item.component';
 
 //array of objects, path is the path to the component
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {
-    path: '',
-    runGuardsAndResolvers:'always',
-    canActivate:[AuthGuard],
-    children:[
-      {
-        path: 'items',
-        children:[
-          {
-            path:'',
-            //pathMatch: "full",
-            component: ItemListComponent
-          },
-          { 
-            path: ':id',
-            component: ItemDetailsComponent
-          }
-        ]
-      },
-      {
-        path: 'profile',
-        children:[
-          { 
-            path: 'my-profile',
-            component: UserDetailsProfileComponent
-          },
-          {
-            path: 'edit',
-            component: EditUserDetailsProfileComponent,
-            canDeactivate: [PreventUnsavedChangesGuard]
-          }
-        ]
-      },
-      {path: 'cart', component: CartComponent},
-    ]
-  },
-  {path: '404-not-found',component: NotFoundComponent},
-  {path: '500-server-error',component:ServerErrorComponent},
-  {path: 'contact', component: ContactComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'errors', component: TestErrorsComponent},
-  {path: '**', component: NotFoundComponent, pathMatch: 'full'}
+	{path: '', component: HomeComponent},
+	{
+		path: '',
+		runGuardsAndResolvers:'always',
+		canActivate:[AuthGuard],
+		children:[
+			{
+				path: 'items',
+				children:[
+					{
+						path:'', //items
+						//pathMatch: "full",
+						component: ItemListComponent
+					},
+					{ 
+						path: ':id', //items/id
+						component: ItemDetailsComponent
+					}
+				]
+			},
+			{
+				path: 'profile',
+				children:[
+					{ 
+						path: 'my-profile',	//profile/my-profle
+						component: UserDetailsProfileComponent
+					},
+					{
+						path: 'edit',	//profile/edit
+						component: EditUserDetailsProfileComponent,
+						canDeactivate: [PreventUnsavedChangesGuard]
+					}
+				]
+			},
+			{path: 'cart', component: CartComponent}, //cart
+			{
+				path: 'my-items',	//my-items
+				children:[
+					{
+						path:'',
+						component: MyItemsComponent,
+					},
+					{
+						path:'add-item',	//my-items/add-item
+						component:AddItemComponent
+					},
+					{
+						path:'update/:id',	//my-items/update/#
+						component:UpdateItemComponent
+					}
+				]
+			}
+		]
+	},
+	{path: '404-not-found',component: NotFoundComponent},
+	{path: '500-server-error',component:ServerErrorComponent},
+	{path: 'contact', component: ContactComponent},
+	{path: 'about', component: AboutComponent},
+	{path: 'errors', component: TestErrorsComponent},
+	{path: '**', component: NotFoundComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }

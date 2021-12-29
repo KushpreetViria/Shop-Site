@@ -1,0 +1,17 @@
+<div style="display:flex; justify-content:center">
+	<a class="btn btn-outline-primary align-self-center" routerLink="./add-item">Add item</a>
+</div>
+
+<div *ngIf="(myItems$ | async) as items">
+	<div *ngIf="items.length > 0">
+		<div class="row">
+			<h3>My Items:</h3>
+			<div *ngFor="let item of items" class="col-3">
+				<app-my-item-card [item]="item"></app-my-item-card>
+			</div>
+		</div>
+	</div>
+ 	<div *ngIf="items.length <= 0" class="m-4">
+		<h2 class="text-center text-info">You have no items up for sale</h2>
+	</div>
+</div>

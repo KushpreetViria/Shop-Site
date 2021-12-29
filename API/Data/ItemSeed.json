@@ -5,7 +5,7 @@
 	  "DateListed": "2019-12-14",
 	  "Price": 4.49,
 	  "ItemImage": {
-		"Url": "https://usapple.org/wp-content/uploads/2019/10/apple-pink-lady.png"
+		"ImagePath": "https://usapple.org/wp-content/uploads/2019/10/apple-pink-lady.png"
 	  }
 	},
 	{
@@ -14,7 +14,7 @@
 	  "DateListed": "2020-03-06",
 	  "Price": 4.12,
 	  "ItemImage": {
-		"Url": "https://www.fresh2cook.com.au/wp-content/uploads/2021/09/Banana-Cavendish.jpeg"
+		"ImagePath": "https://www.fresh2cook.com.au/wp-content/uploads/2021/09/Banana-Cavendish.jpeg"
 	  }
 	},
 	{
@@ -23,7 +23,7 @@
 	  "DateListed": "2019-07-27",
 	  "Price": 15.63,
 	  "ItemImage": {
-		"Url": "https://images.lululemon.com/is/image/lululemon/LU9AJXS_045397_1?size=800,800"
+		"ImagePath": "https://images.lululemon.com/is/image/lululemon/LU9AJXS_045397_1?size=800,800"
 	  }
 	},
 	{
@@ -32,7 +32,7 @@
 	  "DateListed": "2019-05-05",
 	  "Price": 28.69,
 	  "ItemImage": {
-		"Url": "https://cdn.shopify.com/s/files/1/1184/8064/products/46-5736MRLW-J066950-081120-F21-032copy_500x500.jpg?v=1628350273"
+		"ImagePath": "https://cdn.shopify.com/s/files/1/1184/8064/products/46-5736MRLW-J066950-081120-F21-032copy_500x500.jpg?v=1628350273"
 	  }
 	},
 	{
@@ -41,7 +41,7 @@
 	  "DateListed": "2019-08-01",
 	  "Price": 14.32,
 	  "ItemImage": {
-		"Url": "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/893E44B4248847338CD88E85BD79D361/10186027_r.jpg?fit=inside|220:220"
+		"ImagePath": "https://imgs.michaels.com/MAM/assets/1/726D45CA1C364650A39CD1B336F03305/img/893E44B4248847338CD88E85BD79D361/10186027_r.jpg?fit=inside|220:220"
 	  }
 	}
   ]

@@ -1,0 +1,50 @@
+<h1>Add Item</h1>
+<form [formGroup]="itemInfoForm" (ngSubmit)="onSubmit()">
+    <div class="form-row d-flex justify-content-between">
+		<!-- name and price input -->
+        <div class="form-group col-5">
+            <label>Item Name</label>
+            <input type="text" formControlName="Name" class="form-control border border-primary" [ngClass]="{ 'is-invalid': submitted && form.Name.errors }" />
+            <div *ngIf="submitted && form.Name.errors" class="invalid-feedback">
+                <div *ngIf="form.Name.errors.required">Item Name is required</div>
+            </div>
+        </div>
+        <div class="form-group col-5">
+            <label>Price</label>
+            <input type="number" formControlName="Price" class="form-control border border-primary" [ngClass]="{ 'is-invalid': submitted && form.Price.errors }" />
+            <div *ngIf="submitted && form.Price.errors" class="invalid-feedback">
+                <div *ngIf="form.Price.errors.required">Price is required</div>
+				<div *ngIf="form.Price.errors.pattern != undefined">Not a valid US currency value</div>
+			</div>
+        </div>
+    </div>
+	<!-- description input -->
+    <div class="form-row ">
+		<label>Description</label>
+		<textarea formControlName="Description" class="form-control border border-primary" rows="4" [ngClass]="{ 'is-invalid': submitted && form.Description.errors }"></textarea>
+		<div *ngIf=" submitted && form.Description.errors" class="invalid-feedback">
+			<div *ngIf="form.Description.errors.required">Description is required</div>
+			<div *ngIf="form.Description.errors.minlength != undefined">Minimum of 50 characters</div>
+			<div *ngIf="form.Description.errors.maxlength != undefined">Maximum of 1000 characters</div>
+		</div>
+    </div>
+	<!-- file upload -->
+	<div class="from-row mt-3">
+		<label>Upload an image:</label>
+		<input type="file" class="form-control-file" (change)="onFileSelected($event)">
+		<div *ngIf="fileError.error">
+			<!-- Buggy bootstrap? invalid-feedback class was hiding elements -->
+			<div *ngIf="fileError.cause === 'fileType'" class="text-danger">
+				<small>File must be a .PNG or .JPG</small>
+			</div>
+			<div *ngIf="fileError.cause === 'fileSize'" class="text-danger">
+				<small>File must be less then 500 KB</small>
+			</div>
+		</div>		
+	</div>
+	<!-- submit/cancel -->
+    <div class="form-group p-2 m-2">
+        <button class="btn btn-primary">Add</button>
+        <a routerLink="/my-items" class="btn btn-link">Cancel</a>
+    </div>
+</form>
