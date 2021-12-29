@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from './shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,10 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { EditUserDetailsProfileComponent } from './components/users/edit-user-details-profile/edit-user-details-profile.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { MyItemsComponent } from './components/items/my-items/my-items.component';
+import { AddItemComponent } from './components/items/add-item/add-item.component';
+import { UpdateItemComponent } from './components/items/update-item/update-item.component';
+import { MyItemCardComponent } from './components/items/my-item-card/my-item-card.component';
 
 
 @NgModule({
@@ -48,11 +52,16 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     ServerErrorComponent,
     UserDetailsProfileComponent,
     EditUserDetailsProfileComponent,
+    MyItemsComponent,
+    AddItemComponent,
+    UpdateItemComponent,
+    MyItemCardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,    
