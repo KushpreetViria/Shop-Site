@@ -16,14 +16,19 @@ namespace API.Helpers
             CreateMap<AppUser,UsersDetailDTO>()
                 .IncludeAllDerived()
                 .ForMember(dest => dest.FullAddress, opt => opt.MapFrom(x => x.GetFullAddress()));
-            
             CreateMap<Cart,CartDTO>();
-            
+
             CreateMap<Item,ItemDTO>()
+                //.AfterMap((src,dest) => dest.ImagePath = src.ItemImage.ImagePath)
                 .ForMember(dest => dest.ImagePath, opt => opt.MapFrom(src => src.ItemImage.ImagePath))
                 .ForMember(dest => dest.SellerId, opt => opt.MapFrom(src => src.AppUserID ));
             CreateMap<ItemDTO,Item>()
-                .ForMember(dest => dest.ItemImage.ImagePath, opt => opt.MapFrom(src => src.ImagePath));
+                .AfterMap((src,dest) => {
+                    dest.ItemImage = new ItemImage();
+                    dest.ItemImage.ImagePath = src.ImagePath;
+                })
+                .ForMember(dest => dest.AppUserID, opt => opt.MapFrom(src => src.SellerId));
+                //.ForMember(dest => dest.ItemImage.ImagePath, opt => opt.MapFrom(src => src.ImagePath));
 
             CreateMap<Transaction,TransactionDTO>();
             CreateMap<TransactionDTO,Transaction>();

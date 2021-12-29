@@ -28,7 +28,8 @@ namespace API.Data.Repository
 
 		public async Task<IEnumerable<ItemDTO>> GetItemsDTOAsync()
 		{
-			return await _context.Items.Include(x => x.ItemImage)
+			return await _context.Items
+				.Include(p => p.ItemImage)
 				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
 				.ToListAsync();
 		}
@@ -37,6 +38,7 @@ namespace API.Data.Repository
 		{
 			return await _context.Items
                 .Where(p => p.Id == Id)
+				.Include(p => p.ItemImage)
 				.ProjectTo<ItemDTO>(_mapper.ConfigurationProvider)
 				.FirstOrDefaultAsync();
 		}

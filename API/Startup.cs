@@ -1,9 +1,13 @@
+using System.IO;
 using API.Extensions;
 using API.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
@@ -23,6 +27,10 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
+            // services.Configure<FormOptions>(o =>{
+            //     o.ValueLengthLimit = int.MaxValue;
+            //     o.MemoryBufferThreshold
+            // })
             services.AddIdentityServices(_config);
             
             //go to host/swagger to get list of API commands
@@ -45,6 +53,11 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"SavedResources")),
+                RequestPath = new PathString("/static_resources")
+            });
 
             app.UseRouting();
 
